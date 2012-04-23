@@ -1,23 +1,14 @@
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/default.css" type="text/css"/>
         <link href="favicon.png" rel="icon" type="image/png" />
-        <title>GoTogether</title>
-        
-        <script language="JavaScript">
-            function toggle(id) {
-                var state = document.getElementById(id).style.display;
-                    if (state == 'block') {
-                        document.getElementById(id).style.display = 'none';
-                    } else {
-                        document.getElementById(id).style.display = 'block';
-                    }
-                }
-        </script>
+        <title>GoTogether</title>     
         
     </head>
     <body> 
@@ -32,12 +23,13 @@
         
         <div class="smallMenu"> 
             <a href="addride.htm">
-                <img src="img/plus.jpg"/>
+                <img src="img/plus.png"/>
             </a>
         </div>       
         
+        
         <div class="content">
-            <table width="600px" border="1" bgcolor="0DD939">
+            <table width="600px" border="1" bgcolor="0DD939">                
                 <tr>
                     <td>Date</td>
                     <td>Time</td>
@@ -45,13 +37,15 @@
                     <td>To</td>
                     <td>Edit</td>
                 </tr>
-                <tr>
-                    <td>31.5.2012</td>
-                    <td>12:30</td>
-                    <td>Příbram</td>
-                    <td>Praha</td>
-                    <td><a href="#">EDIT</a></td>
-                </tr>
+                <c:forEach items="${rides}" var="current">
+                    <tr>
+                        <td><c:out value="${current.getDay()}" />/<c:out value="${current.getMonth()}" />/<c:out value="${current.getYear()}" /></td>
+                        <td><c:out value="${current.getHour()}" />:<c:out value="${current.getMinute()}" /></td>
+                        <td><c:out value="${current.getFrom()}" /></td>    
+                        <td><c:out value="${current.getTo()}" /></td> 
+                        <td><a href="#">EDIT</a></td>      
+                    </tr>
+                </c:forEach>                
             </table>
         </div>
         

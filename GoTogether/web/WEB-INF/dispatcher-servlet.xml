@@ -84,7 +84,7 @@
         <property name="validator"><ref bean="addrideValidator"/></property>
         <property name="formView"><value>addride</value></property>
         <property name="successView"><value>success</value></property>
-    </bean>
+    </bean>    
     
     <bean name="database" class="go.web.model.Database"/>
     

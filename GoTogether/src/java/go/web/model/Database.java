@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,12 +39,10 @@ public class Database {
         query.put("userId", userId);
         rides.save(query);
         DBObject rideDb = rides.findOne(query);
-        String rideId = rideDb.get("_id").toString();
-        System.out.println("RIDE ID: "+rideId);
+        String rideId = rideDb.get("_id").toString();        
         BasicDBObject query2 = new BasicDBObject();
         query2.put("_id", userId);
-        DBObject userDb = users.findOne(query2);
-        System.out.println(userDb.get("_id").toString());
+        DBObject userDb = users.findOne(query2);        
         ArrayList ridesList = new ArrayList();
         if (userDb.get("rides") != null) {
             ridesList = (ArrayList)userDb.get("rides");
@@ -51,6 +50,32 @@ public class Database {
         ridesList.add(rideId);
         userDb.put("rides", ridesList);
         users.save(userDb);
+    }
+    
+    public ArrayList<Ride> getUserRides(ObjectId userId) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", userId);
+        DBObject user = users.findOne(query);
+        ArrayList<String> ridesStringId = (ArrayList<String>) user.get("rides");
+        Iterator it = ridesStringId.iterator();
+        ArrayList<Ride> rideList = new ArrayList<Ride>();
+        while(it.hasNext() == true) {
+            String s = (String) it.next();
+            ObjectId i = new ObjectId(s);
+            BasicDBObject query2 = new BasicDBObject();
+            query2.put("_id", i);
+            DBObject rideDb = rides.findOne(query2);
+            Ride r = new Ride();
+            r.setDay(Integer.parseInt(rideDb.get("day").toString()));
+            r.setMonth(Integer.parseInt(rideDb.get("month").toString()));
+            r.setYear(Integer.parseInt(rideDb.get("year").toString()));
+            r.setHour(Integer.parseInt(rideDb.get("hour").toString()));
+            r.setMinute(Integer.parseInt(rideDb.get("minute").toString()));
+            r.setFrom(rideDb.get("from").toString());
+            r.setTo(rideDb.get("to").toString());
+            rideList.add(r);            
+        }
+        return rideList;
     }
     
     public User login(String username, String password) {
