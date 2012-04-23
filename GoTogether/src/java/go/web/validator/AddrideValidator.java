@@ -38,6 +38,12 @@ public class AddrideValidator implements Validator {
         if (tempRide.getMinute() < 0 || tempRide.getMinute() > 59) {
             errors.rejectValue("minute", "error.empty.field", "Minutes format is wrong.");
         }
+        if (tempRide.getFrom().isEmpty()) {
+            errors.rejectValue("minute", "error.empty.field", "Please insert start destination.");
+        }
+        if (tempRide.getTo().isEmpty()) {
+            errors.rejectValue("minute", "error.empty.field", "Please insert end destination.");
+        }
         System.out.println("New ride "+tempRide.getDay()+"/"+tempRide.getMonth()+"/"+tempRide.getYear()+" "+tempRide.getHour()+":"+tempRide.getMinute()+
                 " From "+tempRide.getFrom()+" To "+tempRide.getTo());
     }

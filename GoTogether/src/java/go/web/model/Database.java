@@ -68,8 +68,8 @@ public class Database {
             Ride r = new Ride();
             r.setDay(Integer.parseInt(rideDb.get("day").toString()));
             r.setMonth(Integer.parseInt(rideDb.get("month").toString()));
-            r.setYear(Integer.parseInt(rideDb.get("year").toString()));
-            r.setHour(Integer.parseInt(rideDb.get("hour").toString()));
+            r.setYear(Integer.parseInt(rideDb.get("year").toString()));            
+            r.setHour(Integer.parseInt(rideDb.get("hour").toString()));            
             r.setMinute(Integer.parseInt(rideDb.get("minute").toString()));
             r.setFrom(rideDb.get("from").toString());
             r.setTo(rideDb.get("to").toString());

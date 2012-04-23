@@ -9,7 +9,12 @@
         <link href="favicon.png" rel="icon" type="image/png" />
     </head>
     <body>
+        <div class="panel_corner"></div>
+        <div class="panel">
+                <div class="register"><a href="main.htm"><img src="img/home.png"/></a></div>
+            </div>
         <div class="register_content">
+            <div class="addride_title"></div>
             <div class="devide"></div>
             <form:form commandName="addride" method="POST" name="addride">
                 <p>

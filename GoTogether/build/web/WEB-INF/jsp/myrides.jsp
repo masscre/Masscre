@@ -40,7 +40,7 @@
                 <c:forEach items="${rides}" var="current">
                     <tr>
                         <td><c:out value="${current.getDay()}" />/<c:out value="${current.getMonth()}" />/<c:out value="${current.getYear()}" /></td>
-                        <td><c:out value="${current.getHour()}" />:<c:out value="${current.getMinute()}" /></td>
+                        <td><c:out value="${current.getHourVisual()}" />:<c:out value="${current.getMinuteVisual()}" /></td>
                         <td><c:out value="${current.getFrom()}" /></td>    
                         <td><c:out value="${current.getTo()}" /></td> 
                         <td><a href="#">EDIT</a></td>      

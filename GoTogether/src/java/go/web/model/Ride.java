@@ -17,7 +17,7 @@ public class Ride {
     
     public Ride(){}
     
-    public BasicDBObject getDbRide() {
+    public BasicDBObject getDbRide() {        
         BasicDBObject query = new BasicDBObject();
         query.put("day", day);
         query.put("month", month);
@@ -27,6 +27,16 @@ public class Ride {
         query.put("from", from);
         query.put("to", to);
         return query;
+    }
+    
+    public String getHourVisual() {
+        if (hour < 10) return "0"+hour;
+        return ""+hour;
+    }
+    
+    public String getMinuteVisual() {
+        if (minute < 10) return "0"+minute;
+        return ""+minute;
     }
     
     public void setDay(int day) {
