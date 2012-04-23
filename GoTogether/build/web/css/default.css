@@ -1,0 +1,233 @@
+/* 
+    Document   : default
+    Created on : 9.4.2012, 17:18:58
+    Author     : Masscre
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root {     
+    display: block;
+}
+
+body {    
+    background-image: url("../img/bg-noise.png");
+    margin: 0px; 
+    padding: 0px;
+    height: 100%;
+    text-align: center;
+}
+
+.none {display: none;} 
+.visible {display: block;}
+
+.main {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;    
+    margin-left: auto; 
+    margin-right: auto;
+    display: block;
+}
+
+.title {
+    width: 400px;
+    height: 100px;    
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;    
+    background-image: url("../img/title.png");
+}
+
+.message_window {
+    width: 600px;
+    height: 200px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url("../img/message.png");
+}
+
+.message_up {
+    position: relative;
+    top: 25px;
+    width: 500px;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.message_down {
+    position: relative;
+    top: 25px;
+    width: 400px;
+    height: 50px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;    
+}
+
+.message_redirect {
+    position: relative;
+    width: 78px;
+    height: 36px;
+    top: 40px;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.title_reg {
+    width: 400px;
+    height: 100px;    
+    margin-top: 50px;  
+    margin-left: 50px;
+    background-image: url("../img/title.png");
+}
+
+.join_us {    
+    width: 256px;
+    height: 88px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    background-image: url("../img/join.png");
+}
+
+.register_content {
+    width: 450px;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    background-image: url("../img/register_content.png");
+}
+
+.register_title {
+    position: relative;
+    width: 287px;
+    height: 38px;
+    margin-left: auto;
+    margin-right: auto;    
+    top: 20px;
+    background-image: url("../img/registration_title.png");
+}
+
+.devide {
+    height: 30px;
+}
+
+.register_label {
+    width: 130px;
+    float: left;
+    text-align: right;    
+    display: block
+}
+
+.register_input {
+    position: relative;
+}
+
+.register_submit {
+    color: #000;
+    background: #64cc18;
+    border: 0px
+ }
+
+.login_window {    
+    width: 480px;
+    height: 380px;
+    margin-top: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url("../img/login.png");
+}
+
+.panel_corner {
+    width: 50px;
+    height: 50px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: 150px;
+    background-image: url("../img/panelcorner.png");
+}
+
+.panel {
+    position: absolute;
+    width: 150px;
+    height: 50px;
+    top: 0px;
+    right: 0px;
+    background-image: url("../img/panel.png");
+}
+
+.register {
+    position: relative;
+    width: 101px;
+    height: 16px;
+    top: 15px;    
+    margin-left: 0px;
+}
+
+.login {    
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;    
+    top: 140px;
+}
+
+.addride {
+    display: none;
+}
+
+.smallMenu {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.content {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;    
+}
+
+table {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+li {
+ float: left;
+}
+
+ul {
+ list-style-type: none;
+ background-image: url(../img/panel.png);
+ height: 80px;
+ width: auto;
+ margin: auto;
+}
+
+ul a {
+ background-image: url(navi_bg_divider.png);
+ background-repeat: no-repeat;
+ background-position: right;
+ padding-right: 32px;
+ padding-left: 32px;
+ display: block;
+ line-height: 80px;
+ text-decoration: none;
+ font-family: Georgia, "Times New Roman", Times, serif;
+ font-size: 21px;
+ color: #371C1C;
+ }
+ 
+ ul a:hover {
+ color: #FFF;
+ }
+ 

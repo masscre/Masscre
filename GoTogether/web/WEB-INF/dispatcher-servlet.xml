@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+
+    <!--
+    Most controllers will use the ControllerClassNameHandlerMapping above, but
+    for the index controller we are using ParameterizableViewController, so we must
+    define an explicit mapping for it.
+    -->
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="index.htm">indexController</prop>
+                <prop key="register.htm">registerController</prop> 
+                <prop key="registration_successfull.htm">registrationSuccController</prop>
+                <prop key="main.htm">mainController</prop>
+                <prop key="myrides.htm">myRidesController</prop>
+                <prop key="upcoming.htm">upcomingController</prop>
+                <prop key="management.htm">managementController</prop>
+                <prop key="logout.htm">logoutController</prop>                
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" />
+
+    <bean name="registrationSuccController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          />   
+          
+    <bean name="mainController"
+          class="go.web.controller.MainController" />
+          
+    <bean name="myRidesController"
+          class="go.web.controller.MyRidesController" />   
+          
+    <bean name="upcomingController"
+          class="go.web.controller.UpcomingController" /> 
+          
+    <bean name="managementController"
+          class="go.web.controller.ManagementController" />      
+          
+    <bean name="logoutController"
+          class="go.web.controller.LogoutController" />      
+
+    <!--
+    The index controller.
+    -->
+    <bean id="loginValidator" class="go.web.validator.LoginValidator"/>
+    <bean id="registrationValidator" class="go.web.validator.RegistrationValidator"/>
+    <bean id="indexController" class="go.web.controller.LoginFormController">
+	<property name="sessionForm"><value>false</value></property>
+        <property name="commandName"><value>login</value></property>
+        <property name="commandClass"><value>go.web.model.Login</value></property>
+        <property name="validator"><ref bean="loginValidator"/></property>		
+        <property name="formView"><value>index</value></property>
+        <property name="successView"><value>success</value></property>
+    </bean>  
+        
+    <bean name="registerController" class="go.web.controller.RegisterController">
+        <property name="sessionForm"><value>false</value></property>
+        <property name="commandName"><value>register</value></property>
+        <property name="commandClass"><value>go.web.model.Registration</value></property>
+        <property name="validator"><ref bean="registrationValidator"/></property>
+        <property name="formView"><value>register</value></property>
+        <property name="successView"><value>success</value></property>
+    </bean>    
+    <bean name="database" class="go.web.model.Database"/>
+    
+
+</beans>
