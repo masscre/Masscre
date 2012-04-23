@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.SecretKey;
 import org.bson.types.ObjectId;
 
 
@@ -17,8 +18,7 @@ public class Database {
     private Mongo mongo;
     private DB db;
     private DBCollection users;
-    private DBCollection rides;
-    
+    private DBCollection rides;    
     public static Database database = new Database();
     
     Database() {
@@ -109,25 +109,14 @@ public class Database {
     }
     
     public void register(String firstname, String lastname, String username, String password) {
-        String hashPassword = hashPassword(password);        
+        String hashPassword = password;        
         BasicDBObject query = new BasicDBObject();
         query.put("firstname", firstname);
         query.put("lastname", lastname);
         query.put("username", username);
-        query.put("password", password);
+        query.put("password", hashPassword);
         users.save(query);
         System.out.println("### DATABASE: user "+username+" registered");
     }
     
-    private String hashPassword(String password) {
-        String hashword = "bdf0254521gjd$";
-        try {
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-            md5.update(password.getBytes());
-            BigInteger hash = new BigInteger(1, md5.digest());
-            hashword = hash.toString(16);
-        } catch (NoSuchAlgorithmException nsae) {
-        }
-        return hashword;        
-    }   
 }

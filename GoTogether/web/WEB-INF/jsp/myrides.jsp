@@ -20,7 +20,7 @@
             <li><a href="management.htm">Management</a></li> 
             <li><a href="logout.htm">Logout</a></li>
         </ul>
-        
+        <a href="#" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a> 
         <div class="smallMenu"> 
             <a href="addride.htm">
                 <img src="img/plus.png"/>
