@@ -208,7 +208,7 @@ li {
 ul {
  list-style-type: none;
  background-image: url(../img/panel.png);
- height: 80px;
+ height: 50px;
  width: auto;
  margin: auto;
 }
@@ -220,7 +220,7 @@ ul a {
  padding-right: 32px;
  padding-left: 32px;
  display: block;
- line-height: 80px;
+ line-height: 50px;
  text-decoration: none;
  font-family: Georgia, "Times New Roman", Times, serif;
  font-size: 21px;
