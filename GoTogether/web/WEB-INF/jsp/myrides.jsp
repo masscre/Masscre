@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,34 +31,10 @@
         </ul>
         
         <div class="smallMenu"> 
-            <a href="#" onclick="toggle('addride');">
+            <a href="addride.htm">
                 <img src="img/plus.jpg"/>
             </a>
-        </div>        
-        <div class="addride" id="addride">
-            <table bgcolor="0DD939">
-                <tr>
-                    <td>Date: </td>
-                    <td><input type="date"/></td>
-                </tr>
-                <tr>
-                    <td>Time: </td>
-                    <td><input type="time"/></td>
-                </tr>  
-                <tr>
-                    <td>From: </td>
-                    <td><input type="text"/></td>
-                </tr>    
-                <tr>
-                    <td>To: </td>
-                    <td><input type="text"/></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Add"/></td>
-                </tr>
-            </table>
-        </div>
+        </div>       
         
         <div class="content">
             <table width="600px" border="1" bgcolor="0DD939">

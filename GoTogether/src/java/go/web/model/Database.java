@@ -5,9 +5,11 @@ import java.math.BigInteger;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bson.types.ObjectId;
 
 
 public class Database {
@@ -31,19 +33,24 @@ public class Database {
         }
     }  
     
-    public void addRide(String userId, Ride ride) {
-        System.out.println("### DATABASE: adding new ride (owner: "+userId); 
-        BasicDBObject query = new BasicDBObject();
-        query = ride.getDbRide();
-        this.rides.save(query);
-        String rideId = this.rides.findOne(query).get("_id").toString();
+    public void addRide(ObjectId userId, Ride ride) {
+        BasicDBObject query = ride.getDbRide();
+        query.put("userId", userId);
+        rides.save(query);
+        DBObject rideDb = rides.findOne(query);
+        String rideId = rideDb.get("_id").toString();
+        System.out.println("RIDE ID: "+rideId);
         BasicDBObject query2 = new BasicDBObject();
         query2.put("_id", userId);
-        DBObject user = this.users.findOne(query2);
-        List<String> rides = (List<String>) user.get("rides");
-        rides.add(rideId);
-        user.put("rides", rides);
-        this.users.save(user);
+        DBObject userDb = users.findOne(query2);
+        System.out.println(userDb.get("_id").toString());
+        ArrayList ridesList = new ArrayList();
+        if (userDb.get("rides") != null) {
+            ridesList = (ArrayList)userDb.get("rides");
+        }
+        ridesList.add(rideId);
+        userDb.put("rides", ridesList);
+        users.save(userDb);
     }
     
     public User login(String username, String password) {
@@ -60,6 +67,13 @@ public class Database {
             System.out.println("### DATABASE: user "+username+" not found");
             return null;
         }
+    }
+        
+    public ObjectId getUserId(String username) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("username", username); 
+        DBObject user = users.findOne(query);
+        return (ObjectId)user.get("_id");
     }
     
     public boolean userExist(String username) {
