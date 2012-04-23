@@ -35,7 +35,7 @@
             </a>
         </div>        
         <div class="addride" id="addride">
-            <table>
+            <table background-color="0DD939">
                 <tr>
                     <td>Date: </td>
                     <td><input type="date"/></td>
