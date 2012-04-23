@@ -38,8 +38,7 @@ public class MyRidesController extends AbstractController{
            rides = Database.database.getUserRides(login.getUser().getId()); 
            session.setAttribute("rides", rides);
         } catch (Exception e) {
-            System.out.println("Nelze dostat seznam rides");
-            return new ModelAndView("redirect:index.htm");
+            System.out.println("Nelze dostat seznam rides");            
         }
         
         return new ModelAndView("myrides");
