@@ -43,7 +43,7 @@
                         <td><c:out value="${current.getHourVisual()}" />:<c:out value="${current.getMinuteVisual()}" /></td>
                         <td><c:out value="${current.getFrom()}" /></td>    
                         <td><c:out value="${current.getTo()}" /></td> 
-                        <td><a href="#">EDIT</a></td>      
+                        <td><a href="rideedit.htm?id=${current.getId()}">EDIT</a></td>      
                     </tr>
                 </c:forEach>                
             </table>

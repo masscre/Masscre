@@ -58,7 +58,7 @@
     
     <bean id="loginValidator" class="go.web.validator.LoginValidator"/>
     <bean id="registrationValidator" class="go.web.validator.RegistrationValidator"/>   
-    <bean id="addrideValidator" class="go.web.validator.AddrideValidator"/>  
+    <bean id="addrideValidator" class="go.web.validator.AddrideValidator"/>     
     <bean id="indexController" class="go.web.controller.LoginFormController">
 	<property name="sessionForm"><value>false</value></property>
         <property name="commandName"><value>login</value></property>
@@ -84,7 +84,7 @@
         <property name="validator"><ref bean="addrideValidator"/></property>
         <property name="formView"><value>addride</value></property>
         <property name="successView"><value>success</value></property>
-    </bean>    
+    </bean>        
     
     <bean name="database" class="go.web.model.Database"/>
     

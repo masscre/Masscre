@@ -73,6 +73,7 @@ public class Database {
             r.setMinute(Integer.parseInt(rideDb.get("minute").toString()));
             r.setFrom(rideDb.get("from").toString());
             r.setTo(rideDb.get("to").toString());
+            r.setId(rideDb.get("_id").toString());
             rideList.add(r);            
         }
         return rideList;

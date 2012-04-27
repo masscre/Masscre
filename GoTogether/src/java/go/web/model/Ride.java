@@ -13,7 +13,8 @@ public class Ride {
     private int hour;
     private int minute;
     private String from;
-    private String to;    
+    private String to;
+    private String id;
     
     public Ride(){}
     
@@ -66,6 +67,10 @@ public class Ride {
     public void setTo(String to) {
         this.to = to;
     }    
+    
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public int getDay() {
         return day;
@@ -94,5 +99,9 @@ public class Ride {
     public String getTo() {
         return to;
     }    
+    
+    public String getId() {
+        return id;
+    }
     
 }
