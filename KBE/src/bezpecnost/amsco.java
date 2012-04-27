@@ -18,8 +18,8 @@ class Bezpecnost {
 	boolean run() throws Exception {
 	    type = nextToken();
 	    if (type.equals("end")) return false;
-	    if (type.equals("e")) System.out.println("encrypted text with password " + nextToken() + " is: " + nextToken());
-	    if (type.equals("d")) System.out.println("decrypted text with password " + nextToken() + " is: " + nextToken());
+	    if (type.equals("e")) System.out.println(encrypt(nextToken(), nextToken()));
+	    if (type.equals("d")) System.out.println(decrypt(nextToken(), nextToken()));
 	    return true;
 	}    
 	    
@@ -37,6 +37,14 @@ class Bezpecnost {
 	    return st.nextToken();
 	
 	}
+        
+        String encrypt(String password, String text) {
+            return "zasifrovany text";
+        }
+        
+        String decrypt(String password, String text) {
+            return "desifrovany text";
+        }
 
 
 }
