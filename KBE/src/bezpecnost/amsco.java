@@ -5,11 +5,11 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /**
- * BEZ
- * Solution for the problem: Test
+ * KBE
+ * Solution for the problem: Amsco
  * March, 2011
  *
- * @author Jan Kubr
+ * @author Tomáš Malich
  */
 
 class Bezpecnost {
@@ -27,10 +27,7 @@ class Bezpecnost {
 	public static void main(String[] args) throws Exception {
 	    Bezpecnost inst = new Bezpecnost();
 	    while (inst.run()) {}
-	}
-	
-	
-	
+	}	
 	
 	StringTokenizer st = new StringTokenizer("");
 	BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
