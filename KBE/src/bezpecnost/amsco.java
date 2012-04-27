@@ -1,7 +1,9 @@
 package bezpecnost;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
@@ -9,7 +11,7 @@ import java.util.StringTokenizer;
  * Solution for the problem: Amsco
  * March, 2011
  *
- * @author Tomáš Malich
+ * @author Tomas Malich
  */
 
 class Bezpecnost {
@@ -35,8 +37,7 @@ class Bezpecnost {
 
 	String nextToken () throws Exception {    
 	    while (!st.hasMoreTokens()) st = new StringTokenizer (stdin.readLine());
-	    return st.nextToken();
-	
+	    return st.nextToken();	
 	}
         
         String encrypt(String password, String text) {
