@@ -21,8 +21,8 @@ class Bezpecnost {
 	boolean run() throws Exception {
 	    type = nextToken();
 	    if (type.equals("end")) return false;
-	    if (type.equals("e")) System.out.println(encrypt(nextToken(), checkText(nextToken())));
-	    if (type.equals("d")) System.out.println(decrypt(nextToken(), nextToken()));
+	    if (type.equals("e")) System.out.println(encrypt(nextToken(), checkText(getText())));
+	    if (type.equals("d")) System.out.println(decrypt(nextToken(), getText()));
 	    return true;
 	}    
 	    
@@ -40,7 +40,16 @@ class Bezpecnost {
 	    return st.nextToken();	
 	}
         
-        String encrypt(String password, String text) {
+        String getText() throws IOException {        
+            String text = st.nextToken();
+            int countTokens = st.countTokens();
+                for (int i = 0; i < countTokens; i++) {
+                    text = text + st.nextToken();
+                }
+            return text;
+        }
+        
+        String decrypt(String password, String text) {
             boolean even = true;
             if (text.length()%2 != 0) even = false;
             int y;
@@ -52,6 +61,31 @@ class Bezpecnost {
             double linesNumberDouble = text.length()/y;
             int linesNumber = (int)(linesNumberDouble);
             if (linesNumberDouble > (double)(linesNumber)) linesNumber++;
+            columns = new Column[password.length()];
+            for (int i = 0; i < password.length(); i++) {
+                columns[i] = new Column(linesNumber);
+            }
+            
+            String textArray[] = new String[text.length()-text.length()/3];      
+                           
+            
+            
+            return "desifrovano";
+        }
+        
+        String encrypt(String password, String text) {
+            boolean even = true;
+            int textLength = text.length();
+            if (text.length()%2 != 0) even = false;
+            int y;
+            if (even == true) {
+                y = password.length() + password.length()/2;
+            } else {
+                y = password.length() - 1 + password.length()/2;
+            }
+            double linesNumberDouble = text.length()/y;
+            int linesNumber = (int)(linesNumberDouble)+1;
+            
             
             columns = new Column[password.length()];
             
@@ -97,12 +131,18 @@ class Bezpecnost {
                 } catch (Exception e){}
             }     
             
+            /**
+            for (int i = 0; i < numbers.length; i++) {
+                System.out.print(numbers[i]);
+            }
+            System.out.println("");
+            **/
             String encryptText = null;
              
-            int current = 0;
+            int current = 1;
             for (int i = 0; i < columns.length; i++) {
                 for (int c = 0; c < linesNumber; c++) {
-                    String tok = columns[numbers[current]-1].readLine();
+                    String tok = columns[getCurrent(current, numbers)].readLine();                    
                     if (encryptText == null && tok != null) {
                         encryptText = tok;
                     }
@@ -133,8 +173,12 @@ class Bezpecnost {
             return result;
         }
         
-        String decrypt(String password, String text) {
-            return "desifrovany text";
+        int getCurrent(int c, int[] numbers) {
+            int result;
+            for (int i = 0; i < numbers.length; i++) {                
+                if (c == numbers[i]) return i;
+            }
+            return -1;
         }
         
         String checkText(String text) {
@@ -146,8 +190,7 @@ class Bezpecnost {
                 else if (check(text.substring(i, i+1)) == true){
                     result = result + text.substring(i, i+1);
                 }
-            }
-            System.out.println(result);
+            }            
             return result;
         }
         
