@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
 
 class Bezpecnost {
 	String type;
-        Column[] columns;
+        Column[] columns;        
 	
 	boolean run() throws Exception {
 	    type = nextToken();
@@ -50,30 +50,61 @@ class Bezpecnost {
         }
         
         String decrypt(String password, String text) {
+                                    
+            // linesNumber
+            // empryChars
+            // zanechat v evenLine stopu jak koncila posledni line
             
-            int charsLeft = text.length();
-            int linesNumber = 0;
+            boolean passwordEven;
+            if (password.length() % 2 == 0) passwordEven = true;
+            else passwordEven = false;
+            
+            int textLength = text.length();
+            int passwordLength = password.length();            
+            int charsOnLine;
+            int charsOnOddLine;
+            int numberOfLines = 0;
             int emptyChars = 0;
+            
             boolean evenLine = true;
-            while(charsLeft > 0) {
-                if (evenLine == true) {
-                    charsLeft = charsLeft - 8;
-                    evenLine = false;
+            
+            if (passwordEven == true) {
+                charsOnLine = passwordLength + passwordLength / 2;
+                int remainChars = textLength;
+                while(remainChars > 0) {
+                    remainChars = remainChars - charsOnLine;
+                    numberOfLines++;
                 }
-                else {
-                    charsLeft = charsLeft -7;
-                    evenLine = true;
+                if (remainChars != 0) {
+                    emptyChars = charsOnLine + remainChars;
+                    emptyChars = charsOnLine - emptyChars; 
                 }
-                linesNumber++;
-            }
-            if (linesNumber != 0) {
-                if (evenLine == true) {
-                    emptyChars = 8 + charsLeft;
-                    emptyChars = 8 - emptyChars;                    
-                } else {
-                    emptyChars = 7 + charsLeft;
-                    emptyChars = 7 - emptyChars;                    
-                }                
+            } else {
+                charsOnLine = passwordLength + passwordLength / 2 + 1;
+                charsOnOddLine = passwordLength + passwordLength / 2;
+                int remainChars = textLength;
+                while(remainChars > 0) {
+                    if (evenLine == true) {
+                        remainChars = remainChars - charsOnLine;                          
+                        numberOfLines++;
+                        if (remainChars < 0) break;
+                        evenLine = false;
+                    } else {
+                        remainChars = remainChars - charsOnOddLine;                      
+                        numberOfLines++;
+                        if (remainChars < 0) break;
+                        evenLine = true;
+                    }
+                }
+                if (remainChars != 0) {
+                    if (evenLine == true) {
+                        emptyChars = charsOnLine + remainChars;
+                        emptyChars = charsOnLine - emptyChars;                        
+                    } else {
+                        emptyChars = charsOnOddLine + remainChars;
+                        emptyChars = charsOnOddLine - emptyChars;                        
+                    }
+                }
             }
             
             int[] numbers = new int[password.length()];
@@ -86,20 +117,28 @@ class Bezpecnost {
             columns = new Column[password.length()];
             
             for (int i = 0; i < password.length(); i++) {
-                columns[i] = new Column(linesNumber);
+                columns[i] = new Column(numberOfLines);
             }
             
             boolean duplexSpace = true;
-            if (evenLine == false) {
+            if (evenLine == true) {
                 int k = 0;
-                while(emptyChars != 0) {
+                while(emptyChars > 0) {
                     if (duplexSpace == true) {
-                        columns[columns.length - 1 - k].addBottomLine("##");
+                        try {
+                            columns[columns.length - 1 - k].addBottomLine("#");
+                        } catch (Exception e){
+                            break;
+                        }                       
                         duplexSpace = false;
                         emptyChars = emptyChars - 2;
                     }
                     else {
-                        columns[columns.length - 1 - k].addBottomLine("#");
+                        try {
+                            columns[columns.length - 1 - k].addBottomLine("##");
+                        } catch (Exception e) {
+                            break;
+                        }                       
                         duplexSpace = true;
                         emptyChars--;
                     }
@@ -131,12 +170,16 @@ class Bezpecnost {
                 while(l != columns[realColumn].size) {
                     if ("#".equals(columns[realColumn].column[l])) break;
                     if ("##".equals(columns[realColumn].column[l])) break;
-                    boolean dup = duplex(realColumn, l, linesNumber);
+                    boolean dup = duplex(realColumn, l, passwordEven);
                     if (dup == true) {
-                        columns[realColumn].addLine(text.substring(textCursor, textCursor+2));
+                        try {
+                            columns[realColumn].addLine(text.substring(textCursor, textCursor+2));
+                        } catch (Exception e) {}
                         textCursor = textCursor + 2;
                     } else {
-                        columns[realColumn].addLine(text.substring(textCursor, textCursor+1));
+                        try {
+                           columns[realColumn].addLine(text.substring(textCursor, textCursor+1)); 
+                        } catch (Exception e) {}                        
                         textCursor++;
                     }
                     l++;
@@ -145,20 +188,27 @@ class Bezpecnost {
             
             String decryptedText = "";
             
-            for (int y = 0; y < linesNumber; y++) {
+            for (int y = 0; y < numberOfLines; y++) {
                 for (int i = 0; i < numbers.length; i++) {
                     String t = columns[i].column[y];
-                    if (!"#".equals(t) && !"##".equals(t)) decryptedText = decryptedText + t;
+                    if (!"#".equals(t) && !"##".equals(t) && t != null) decryptedText = decryptedText + t;
                 }
             }        
             
             return decryptedText.toUpperCase();
         }
         
-        boolean duplex(int x, int y, int size) {
-            int r = x + size - y;
-            if (r%2 == 0) return false;
-            else return true;            
+        boolean duplex(int x, int y, boolean pw) {
+            if (pw == false) {
+                int r = x + y;
+                if (r%2 == 0) return true;
+                else return false;
+            } else {
+                if(x%2 == 0) {
+                    return true;
+                } else return false;
+            }
+                       
         }
         
         String encrypt(String password, String text) {
@@ -367,3 +417,50 @@ class Column {
         column[size-1] = text;
     }
 }
+
+/**
+ * if (password.length()%2 == 0) {
+                while(charsLeft > 0) {
+                    if (evenLine == true) {
+                        charsLeft = charsLeft - password.length() + password.length()/2;
+                        evenLine = false;
+                    }
+                    else {
+                        charsLeft = charsLeft - password.length() + password.length()/2 - 1;
+                        evenLine = true;
+                    }
+                    linesNumber++;
+                }
+                if (linesNumber != 0) {
+                    if (evenLine == true) {
+                        emptyChars = password.length() + password.length()/2 + charsLeft;
+                        emptyChars = password.length() + password.length()/2 - emptyChars;                    
+                    } else {
+                        emptyChars = password.length() + password.length()/2 - 1 + charsLeft;
+                        emptyChars = password.length() + password.length()/2 - 1 - emptyChars;                    
+                    }                
+                }
+            } else {
+                while(charsLeft > 0) {
+                    if (evenLine == true) {
+                        charsLeft = charsLeft - password.length() + password.length()/2;
+                        evenLine = false;
+                    }
+                    else {
+                        charsLeft = charsLeft - password.length() + password.length()/2;
+                        evenLine = true;
+                    }
+                    linesNumber++;
+                }
+                if (linesNumber != 0) {
+                    if (evenLine == true) {
+                        emptyChars = password.length() + password.length()/2 + charsLeft;
+                        emptyChars = password.length() + password.length()/2 - emptyChars;                    
+                    } else {
+                        emptyChars = password.length() + password.length()/2 + charsLeft;
+                        emptyChars = password.length() + password.length()/2 - emptyChars;                    
+                    }                
+                }
+            }
+ * 
+ */
