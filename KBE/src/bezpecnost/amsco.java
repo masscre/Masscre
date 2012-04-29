@@ -76,9 +76,89 @@ class Bezpecnost {
                 }                
             }
             
+            int[] numbers = new int[password.length()];
+            for (int i = 0; i < password.length(); i++) {
+                try {
+                    numbers[i] = Integer.parseInt(password.substring(i, i+1));
+                } catch (Exception e){}
+            } 
             
+            columns = new Column[password.length()];
             
-            return "desifrovano";
+            for (int i = 0; i < password.length(); i++) {
+                columns[i] = new Column(linesNumber);
+            }
+            
+            boolean duplexSpace = true;
+            if (evenLine == false) {
+                int k = 0;
+                while(emptyChars != 0) {
+                    if (duplexSpace == true) {
+                        columns[columns.length - 1 - k].addBottomLine("##");
+                        duplexSpace = false;
+                        emptyChars = emptyChars - 2;
+                    }
+                    else {
+                        columns[columns.length - 1 - k].addBottomLine("#");
+                        duplexSpace = true;
+                        emptyChars--;
+                    }
+                    k++;
+                }
+            } else {
+                duplexSpace = false;
+                int k = 0;
+                while(emptyChars > 0) {
+                    if (duplexSpace == true) {
+                        columns[columns.length - 1 - k].addBottomLine("##");
+                        duplexSpace = false;
+                        emptyChars = emptyChars - 2;
+                    }
+                    else {
+                        columns[columns.length - 1 - k].addBottomLine("#");
+                        duplexSpace = true;
+                        emptyChars--;
+                    }
+                    k++;
+                }
+            }            
+            
+            int textCursor = 0;
+            
+            for (int i = 1; i < numbers.length + 1; i++) {
+                int realColumn = getCurrent(i, numbers);
+                int l = 0;
+                while(l != columns[realColumn].size) {
+                    if ("#".equals(columns[realColumn].column[l])) break;
+                    if ("##".equals(columns[realColumn].column[l])) break;
+                    boolean dup = duplex(realColumn, l, linesNumber);
+                    if (dup == true) {
+                        columns[realColumn].addLine(text.substring(textCursor, textCursor+2));
+                        textCursor = textCursor + 2;
+                    } else {
+                        columns[realColumn].addLine(text.substring(textCursor, textCursor+1));
+                        textCursor++;
+                    }
+                    l++;
+                }
+            }
+            
+            String decryptedText = "";
+            
+            for (int y = 0; y < linesNumber; y++) {
+                for (int i = 0; i < numbers.length; i++) {
+                    String t = columns[i].column[y];
+                    if (!"#".equals(t) && !"##".equals(t)) decryptedText = decryptedText + t;
+                }
+            }        
+            
+            return decryptedText.toUpperCase();
+        }
+        
+        boolean duplex(int x, int y, int size) {
+            int r = x + size - y;
+            if (r%2 == 0) return false;
+            else return true;            
         }
         
         String encrypt(String password, String text) {
@@ -282,4 +362,8 @@ class Column {
         y++;        
         return r;
     }   
+    
+    void addBottomLine(String text) {
+        column[size-1] = text;
+    }
 }
