@@ -1,22 +1,14 @@
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/default.css" type="text/css"/>
         <link href="favicon.png" rel="icon" type="image/png" />
-        <title>GoTogether</title>
-        
-        <script language="JavaScript">
-            function toggle(id) {
-                var state = document.getElementById(id).style.display;
-                    if (state == 'block') {
-                        document.getElementById(id).style.display = 'none';
-                    } else {
-                        document.getElementById(id).style.display = 'block';
-                    }
-                }
-        </script>
+        <title>GoTogether</title>     
         
     </head>
     <body> 
@@ -28,39 +20,16 @@
             <li><a href="management.htm">Management</a></li> 
             <li><a href="logout.htm">Logout</a></li>
         </ul>
-        
+        <a href="#" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a> 
         <div class="smallMenu"> 
-            <a href="#" onclick="toggle('addride');">
-                <img src="img/plus.jpg"/>
+            <a href="addride.htm">
+                <img src="img/plus.png"/>
             </a>
-        </div>        
-        <div class="addride" id="addride">
-            <table bgcolor="0DD939">
-                <tr>
-                    <td>Date: </td>
-                    <td><input type="date"/></td>
-                </tr>
-                <tr>
-                    <td>Time: </td>
-                    <td><input type="time"/></td>
-                </tr>  
-                <tr>
-                    <td>From: </td>
-                    <td><input type="text"/></td>
-                </tr>    
-                <tr>
-                    <td>To: </td>
-                    <td><input type="text"/></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Add"/></td>
-                </tr>
-            </table>
-        </div>
+        </div>       
+        
         
         <div class="content">
-            <table width="600px" border="1" bgcolor="0DD939">
+            <table width="600px" border="1" bgcolor="0DD939">                
                 <tr>
                     <td>Date</td>
                     <td>Time</td>
@@ -68,13 +37,15 @@
                     <td>To</td>
                     <td>Edit</td>
                 </tr>
-                <tr>
-                    <td>31.5.2012</td>
-                    <td>12:30</td>
-                    <td>Příbram</td>
-                    <td>Praha</td>
-                    <td><a href="#">EDIT</a></td>
-                </tr>
+                <c:forEach items="${rides}" var="current">
+                    <tr>
+                        <td><c:out value="${current.getDay()}" />/<c:out value="${current.getMonth()}" />/<c:out value="${current.getYear()}" /></td>
+                        <td><c:out value="${current.getHourVisual()}" />:<c:out value="${current.getMinuteVisual()}" /></td>
+                        <td><c:out value="${current.getFrom()}" /></td>    
+                        <td><c:out value="${current.getTo()}" /></td> 
+                        <td><a href="rideedit.htm?id=${current.getId()}">EDIT</a></td>      
+                    </tr>
+                </c:forEach>                
             </table>
         </div>
         

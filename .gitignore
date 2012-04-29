@@ -6,3 +6,7 @@
 *.ear
 
 .DS_Store
+/GoTogether/dist/
+/GoTogether/build/
+/KBE/nbproject/private/
+/KBE/build/

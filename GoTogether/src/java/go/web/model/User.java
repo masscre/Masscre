@@ -1,6 +1,8 @@
 package go.web.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 public class User {
 
@@ -12,7 +14,7 @@ public class User {
     private int rights;
     private boolean logged;
     private List<Group> groups;
-    private List<Ride> rides;
+    private ArrayList<String> rides;
     private List<Ride> onBoardOn;
     
     User(String username, int rights, String id) {
@@ -22,8 +24,8 @@ public class User {
         this.id = id;
     }
 
-    public String getId() {
-        return id;
+    public ObjectId getId() {
+        return Database.database.getUserId(username);
     }   
     
     
@@ -59,8 +61,48 @@ public class User {
         return onBoardOn;
     }
 
-    public List<Ride> getRides() {
+    public ArrayList<String> getRides() {
         return rides;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setLogged(boolean logged) {
+        this.logged = logged;
+    }
+
+    public void setOnBoardOn(List<Ride> onBoardOn) {
+        this.onBoardOn = onBoardOn;
+    }
+
+    public void setRides(ArrayList<String> rides) {
+        this.rides = rides;
+    }
+
+    public void setRights(int rights) {
+        this.rights = rights;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
     
     

@@ -4,12 +4,17 @@
  */
 package go.web.controller;
 
+import go.web.model.Database;
 import go.web.model.Login;
+import go.web.model.Ride;
+import java.util.ArrayList;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 /**
  *
@@ -18,14 +23,24 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class MyRidesController extends AbstractController{
 
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception { 
+    protected ModelAndView handleRequestInternal(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {     
+        
+        ArrayList rides = new ArrayList();
+        HttpSession session;
+        Login login;
         try {
-            HttpSession session = hsr.getSession();
-            Login login = (Login)session.getAttribute("user");            
+            session = hsr.getSession();
+            login = (Login)session.getAttribute("user");            
         } catch (Exception e) {
             return new ModelAndView("redirect:index.htm");
-        }                      
+        }      
+        try {
+           rides = Database.database.getUserRides(login.getUser().getId()); 
+           session.setAttribute("rides", rides);
+        } catch (Exception e) {
+            System.out.println("Nelze dostat seznam rides");            
+        }
+        
         return new ModelAndView("myrides");
-    }
-    
+    }    
 }
