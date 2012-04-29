@@ -50,24 +50,32 @@ class Bezpecnost {
         }
         
         String decrypt(String password, String text) {
-            boolean even = true;
-            if (text.length()%2 != 0) even = false;
-            int y;
-            if (even == true) {
-                y = password.length() + password.length()/2;
-            } else {
-                y = password.length() - 1 + password.length()/2;
+            
+            int charsLeft = text.length();
+            int linesNumber = 0;
+            int emptyChars = 0;
+            boolean evenLine = true;
+            while(charsLeft > 0) {
+                if (evenLine == true) {
+                    charsLeft = charsLeft - 8;
+                    evenLine = false;
+                }
+                else {
+                    charsLeft = charsLeft -7;
+                    evenLine = true;
+                }
+                linesNumber++;
             }
-            double linesNumberDouble = text.length()/y;
-            int linesNumber = (int)(linesNumberDouble);
-            if (linesNumberDouble > (double)(linesNumber)) linesNumber++;
-            columns = new Column[password.length()];
-            for (int i = 0; i < password.length(); i++) {
-                columns[i] = new Column(linesNumber);
+            if (linesNumber != 0) {
+                if (evenLine == true) {
+                    emptyChars = 8 + charsLeft;
+                    emptyChars = 8 - emptyChars;                    
+                } else {
+                    emptyChars = 7 + charsLeft;
+                    emptyChars = 7 - emptyChars;                    
+                }                
             }
             
-            String textArray[] = new String[text.length()-text.length()/3];      
-                           
             
             
             return "desifrovano";
