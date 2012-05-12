@@ -35,7 +35,7 @@ class Bezpecnost {
 	StringTokenizer st = new StringTokenizer("");
 	BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 
-	String nextToken () throws Exception {    
+	String nextToken() throws Exception {    
 	    while (!st.hasMoreTokens()) st = new StringTokenizer (stdin.readLine());
 	    return st.nextToken();	
 	}
