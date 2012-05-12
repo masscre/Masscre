@@ -1,5 +1,5 @@
 package robot;
-
+//ahoj
 import java.util.Scanner;
 
 public class Robot {
