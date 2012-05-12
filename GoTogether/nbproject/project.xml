@@ -19,9 +19,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.MongoDB.classpath}</file>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.mongo-2.7.3.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
