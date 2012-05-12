@@ -67,7 +67,7 @@ class Download {
         packetUDP = new DatagramPacket(packet.getPacket(),packet.getSize(),
                                     address, port);
         socket.send(packetUDP);
-        System.out.println("Sending packet: "+packet);
+        System.out.println("Sending first packet: "+packet);
         
         boolean cycle = true;
         
