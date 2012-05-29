@@ -15,7 +15,7 @@ public class User {
     private int rights;
     private boolean logged;
     private List<Group> groups;
-    private ArrayList<String> rides;
+    private ArrayList<Ride> rides;
     private List<Ride> onBoardOn;
     
     public User(String username, int rights, String id) {
@@ -24,6 +24,8 @@ public class User {
         this.logged = true; 
         this.id = id;
     }
+    
+    public User(){}
 
     public ObjectId getId() {
         return Database.database.getUserId(username);
@@ -62,7 +64,7 @@ public class User {
         return onBoardOn;
     }
 
-    public ArrayList<String> getRides() {
+    public ArrayList<Ride> getRides() {
         return rides;
     }
 
@@ -94,7 +96,7 @@ public class User {
         this.onBoardOn = onBoardOn;
     }
 
-    public void setRides(ArrayList<String> rides) {
+    public void setRides(ArrayList<Ride> rides) {
         this.rides = rides;
     }
 
@@ -104,8 +106,7 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-    
+    }    
     
     
 }

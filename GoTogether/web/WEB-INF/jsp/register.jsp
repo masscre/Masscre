@@ -36,11 +36,8 @@
                 <div class="register_input"><form:password path="passwordcheck"/></div>
               </p>
               <p>                
-                <div class="register_submit"><input type="submit" value="Register"/></div>
-              </p>
-              <p>                
-                <div class="register_submit"><a href="javascript: submitRegisterForm()">Register</a></div>
-              </p>
+              <div class="register_submit"><input type="submit" value="Register" onclick="submitRegisterForm()"/></div>
+              </p>              
               <p>
                 <font color="red">
                     <br><form:errors path="firstname"/></br>

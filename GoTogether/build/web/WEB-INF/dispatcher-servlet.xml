@@ -31,6 +31,7 @@
                 <prop key="management.htm">managementController</prop>
                 <prop key="logout.htm">logoutController</prop>  
                 <prop key="addride.htm">addrideController</prop> 
+                <prop key="administration.htm">administrationController</prop>                 
             </props>
         </property>
     </bean>
@@ -42,13 +43,17 @@
 
     <bean name="registrationSuccController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          />   
+          />  
+         
           
     <bean name="mainController"
           class="go.web.controller.MainController" />
           
     <bean name="myRidesController"
-          class="go.web.controller.MyRidesController" />        
+          class="go.web.controller.MyRidesController" />    
+          
+    <bean name="administrationController"
+          class="go.web.controller.AdministrationController" />       
           
     <bean name="upcomingController"
           class="go.web.controller.UpcomingController" /> 

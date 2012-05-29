@@ -36,6 +36,22 @@ public class Database {
         }
     }  
     
+    public ArrayList<User> getUsers() {
+        System.out.println("Getting users");
+        ArrayList<User> usersArray = new ArrayList<User>();
+        List<DBObject> toArray = users.find().toArray();
+        Iterator it = toArray.iterator();
+        while(it.hasNext()) {
+            User user = new User();
+            DBObject dbObj = (DBObject) it.next();
+            user.setFirstname(dbObj.get("firstname").toString());
+            user.setLastname(dbObj.get("lastname").toString());
+            user.setUsername(dbObj.get("username").toString());            
+            usersArray.add(user);
+        }
+        return usersArray;
+    }
+    
     public void addRide(ObjectId userId, Ride ride) {
         BasicDBObject query = new BasicDBObject();
         query.put("day", ride.getDay());
