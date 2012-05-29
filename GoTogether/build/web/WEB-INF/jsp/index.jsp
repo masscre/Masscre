@@ -9,7 +9,11 @@
         <link rel="stylesheet" href="css/default.css" type="text/css"/>
         <link href="favicon.png" rel="icon" type="image/png" />
         <title>GoTogether</title>
+        <script language="javascript" src="js/sha256.js"></script>
+        <script language="javascript" src="js/submitForm.js"></script>
     </head>
+    
+    
 
     <body>
         <div class="main">  
@@ -30,7 +34,10 @@
                             </tr>
                             <tr>
                                 <td>Password:</td> <td><form:password path="password"/></td>
-                            </tr>  
+                            </tr> 
+                            <tr>
+                                <td></td> <td><a href="javascript: submitLoginForm()">Submit</a></td>
+                            </tr>
                             <tr>
                                 <td></td><td align="right"><input type="submit" value="Login"/></td>
                             </tr> 
@@ -39,7 +46,7 @@
                             </tr>
                             <tr>
                                 <td></td><td><font color="red"><form:errors path="password"/></font></td>
-                            </tr>    
+                            </tr>                           
                         </table>
                     </form:form>
                 </div>    

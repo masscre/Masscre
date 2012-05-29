@@ -6,6 +6,8 @@
       <title>GoTogether Registration</title>
       <link rel="stylesheet" href="css/default.css" type="text/css"/>  
       <link href="favicon.png" rel="icon" type="image/png" />
+      <script language="javascript" src="js/sha256.js"></script>
+       <script language="javascript" src="js/submitForm.js"></script>
   </head>
   <body>
       <div class="title"></div>           
@@ -35,6 +37,9 @@
               </p>
               <p>                
                 <div class="register_submit"><input type="submit" value="Register"/></div>
+              </p>
+              <p>                
+                <div class="register_submit"><a href="javascript: submitRegisterForm()">Register</a></div>
               </p>
               <p>
                 <font color="red">

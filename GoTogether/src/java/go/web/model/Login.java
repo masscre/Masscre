@@ -1,5 +1,7 @@
 package go.web.model;
 
+import go.dto.Database;
+
 public class Login {
 
     public Login(){}

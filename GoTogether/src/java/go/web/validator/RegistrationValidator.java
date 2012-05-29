@@ -5,7 +5,7 @@
 package go.web.validator;
 
 
-import go.web.model.Database;
+import go.dto.Database;
 import go.web.model.Registration;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

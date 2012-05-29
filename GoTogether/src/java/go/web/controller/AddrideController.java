@@ -1,6 +1,6 @@
 package go.web.controller;
 
-import go.web.model.Database;
+import go.dto.Database;
 import go.web.model.Login;
 import go.web.model.Ride;
 import javax.servlet.ServletException;

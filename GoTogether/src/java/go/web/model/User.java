@@ -1,5 +1,6 @@
 package go.web.model;
 
+import go.dto.Database;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -17,7 +18,7 @@ public class User {
     private ArrayList<String> rides;
     private List<Ride> onBoardOn;
     
-    User(String username, int rights, String id) {
+    public User(String username, int rights, String id) {
         this.username = username;
         this.rights = rights;
         this.logged = true; 

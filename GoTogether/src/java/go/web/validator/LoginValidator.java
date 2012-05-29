@@ -1,11 +1,13 @@
 package go.web.validator;
 import go.web.model.Login;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.validation.ValidationUtils;
 
 import go.web.controller.*;
-import go.web.model.Database;
+import go.dto.Database;
 
 
 public class LoginValidator implements Validator {
@@ -18,6 +20,7 @@ public class LoginValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         Login login = (Login) obj;   
         login.login();
+               
         if (login.getUsername() == null || login.getUsername().length() == 0) {
             errors.rejectValue("username", "error.empty.field", "Please enter username");            
         }

@@ -17,19 +17,7 @@ public class Ride {
     private String id;
     
     public Ride(){}
-    
-    public BasicDBObject getDbRide() {        
-        BasicDBObject query = new BasicDBObject();
-        query.put("day", day);
-        query.put("month", month);
-        query.put("year", year);
-        query.put("hour", hour);
-        query.put("minute", minute);
-        query.put("from", from);
-        query.put("to", to);
-        return query;
-    }
-    
+        
     public String getHourVisual() {
         if (hour < 10) return "0"+hour;
         return ""+hour;
