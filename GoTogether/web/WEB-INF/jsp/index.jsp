@@ -34,13 +34,10 @@
                             </tr>
                             <tr>
                                 <td>Password:</td> <td><form:password path="password"/></td>
-                            </tr> 
+                            </tr>                             
                             <tr>
-                                <td></td> <td><a href="javascript: submitLoginForm()">Submit</a></td>
+                                <td></td><td><input type="button" name="complete1" value="Login" onClick="submitLoginForm()"></td>
                             </tr>
-                            <tr>
-                                <td></td><td align="right"><input type="submit" value="Login"/></td>
-                            </tr> 
                             <tr>
                                 <td></td><td><font color="red"><form:errors path="username"/></font></td>
                             </tr>
