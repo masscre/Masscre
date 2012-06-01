@@ -124,8 +124,13 @@ body {
     background-image: url("../img/addride_title.png");
 }
 
-.devide {
-    height: 30px;
+.devide {    
+    height: 30px;    
+}
+
+.devide_menu {    
+    height: 10px;
+    background-image: url("../img/bg-noise.png"); 
 }
 
 .register_label {

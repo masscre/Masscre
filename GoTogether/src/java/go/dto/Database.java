@@ -34,7 +34,29 @@ public class Database {
         } catch (MongoException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }  
+    }
+    
+    public void promoteUser(String id, int level) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        DBObject user = users.findOne(query);
+        user.put("rights", level);
+        users.save(user);
+    }
+    
+    public String getUserName(String id) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        DBObject user = users.findOne(query);
+        return user.get("username").toString();
+    }
+    
+    public void removeUser(String id) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        DBObject user = users.findAndRemove(query);
+        System.out.println("DATABASE: removing user "+user.get("username"));
+    }
     
     public ArrayList<User> getUsers() {
         System.out.println("Getting users");
@@ -47,6 +69,9 @@ public class Database {
             user.setFirstname(dbObj.get("firstname").toString());
             user.setLastname(dbObj.get("lastname").toString());
             user.setUsername(dbObj.get("username").toString());            
+            try {
+                user.setRights(Integer.parseInt(dbObj.get("rights").toString()));                
+            } catch (Exception e) {}
             usersArray.add(user);
         }
         return usersArray;
@@ -113,7 +138,11 @@ public class Database {
         DBObject user = users.findOne(query);
         if (user != null) {
             System.out.println("### DATABASE: user "+username+" found");
-            User u = new User(user.get("username").toString(), 0, user.get("_id").toString());
+            int rights = 0;
+            try {
+                rights = Integer.parseInt(user.get("rights").toString());
+            } catch (Exception e) {}
+            User u = new User(user.get("username").toString(), rights, user.get("_id").toString());
             return u;
         } else {
             System.out.println("### DATABASE: user "+username+" not found");

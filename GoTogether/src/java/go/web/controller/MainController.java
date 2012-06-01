@@ -22,7 +22,7 @@ public class MainController extends AbstractController{
             if (!login.loggedIn()) return new ModelAndView("redirect:index.htm");
             else {
                 user = login.getUser();
-                if (user.getRights() == 0) session.setAttribute("adm", "<li><a href=\"administration.htm\">Administration</a></li>");
+                if (user.getRights() == 3) session.setAttribute("adm", "<li><a href=\"administration.htm\">Administration</a></li>");
                 else session.setAttribute("adm", "");
             }
         } catch (Exception e) {

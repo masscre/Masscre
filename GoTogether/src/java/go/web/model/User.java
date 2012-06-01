@@ -2,6 +2,7 @@ package go.web.model;
 
 import go.dto.Database;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import org.bson.types.ObjectId;
 
@@ -29,8 +30,7 @@ public class User {
 
     public ObjectId getId() {
         return Database.database.getUserId(username);
-    }   
-    
+    }       
     
     public String getFirstname() {
         return this.firstname;
@@ -106,7 +106,18 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }    
+    }       
     
+    public static UserComparator getUserComparator() {
+        return new UserComparator();
+    }
     
+}
+
+
+class UserComparator implements Comparator<User> {
+    @Override
+    public int compare(User o1, User o2) {
+        return o1.getUsername().compareTo(o2.getUsername());
+    }
 }

@@ -18,20 +18,27 @@
             <li><a href="myrides.htm">My rides</a></li>
             <li><a href="upcoming.htm">Upcoming</a></li> 
             <li><a href="management.htm">Management</a></li> 
-            <li><a href="administration.htm"><u><font color="white">Administration</font></u></a></li> 
+            <li><a href="administration.htm"><font color="white">Administration</font></a></li> 
             <li><a href="logout.htm">Logout</a></li>
         </ul>
         <a href="#" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a> 
-        <div class="smallMenu">             
-        </div>       
+        <div class="devide_menu">
+            &#32;
+        </div>    
+            <ul>
+                <li><a href="#"><i>Users</i></a></li>  
+                <li><a href="#"><i>Rides</i></a></li>
+            </ul>
+               
         
         <div class="content">
+            <h1>Users: </h1>
             <table width="600px" border="1" bgcolor="0DD939">                
                 <tr>
                     <td>Username</td>
                     <td>Lastname</td>
                     <td>Firstname</td>
-                    <td>Promote</td>
+                    <td>User level</td>
                     <td>Delete</td>
                 </tr>
                 <c:forEach items="${users}" var="current">
@@ -39,8 +46,8 @@
                         <td><c:out value="${current.getUsername()}" /></td>
                         <td><c:out value="${current.getLastname()}" /></td>
                         <td><c:out value="${current.getFirstname()}" /></td>    
-                        <td><c:out value="${current.getRights()}" /></td> 
-                        <td><a href="deleteuser.htm?id=${current.getId().toString()}">DELETE</a></td>      
+                        <td><a href="promotion.htm?id=${current.getId().toString()}"><c:out value="${current.getRights()}" /></a></td> 
+                        <td><a href="removeuser.htm?id=${current.getId().toString()}">DELETE</a></td>      
                     </tr>
                 </c:forEach>                
             </table>

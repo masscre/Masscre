@@ -31,7 +31,10 @@
                 <prop key="management.htm">managementController</prop>
                 <prop key="logout.htm">logoutController</prop>  
                 <prop key="addride.htm">addrideController</prop> 
-                <prop key="administration.htm">administrationController</prop>                 
+                <prop key="administration.htm">administrationController</prop> 
+                <prop key="removeuser.htm">removeUserController</prop>
+                <prop key="removeuserok.htm">removeUserOkController</prop>
+                <prop key="promotion.htm">promoteController</prop>
             </props>
         </property>
     </bean>
@@ -62,12 +65,20 @@
           class="go.web.controller.ManagementController" />      
           
     <bean name="logoutController"
-          class="go.web.controller.LogoutController" />      
+          class="go.web.controller.LogoutController" />    
+          
+    <bean name="removeUserController"
+          class="go.web.controller.RemoveUserController" />
+          
+    <bean name="removeUserOkController"
+          class="go.web.controller.RemoveUserOkController" />
+   
    
     
     <bean id="loginValidator" class="go.web.validator.LoginValidator"/>
     <bean id="registrationValidator" class="go.web.validator.RegistrationValidator"/>   
-    <bean id="addrideValidator" class="go.web.validator.AddrideValidator"/>     
+    <bean id="addrideValidator" class="go.web.validator.AddrideValidator"/> 
+    <bean id="promoteValidator" class="go.web.validator.PromoteValidator"/>  
     <bean id="indexController" class="go.web.controller.LoginFormController">
 	<property name="sessionForm"><value>false</value></property>
         <property name="commandName"><value>login</value></property>
@@ -93,7 +104,16 @@
         <property name="validator"><ref bean="addrideValidator"/></property>
         <property name="formView"><value>addride</value></property>
         <property name="successView"><value>success</value></property>
-    </bean>        
+    </bean>  
+    
+    <bean name="promoteController" class="go.web.controller.PromoteController">
+        <property name="sessionForm"><value>false</value></property>
+        <property name="commandName"><value>promote</value></property>
+        <property name="commandClass"><value>go.web.model.Promote</value></property>
+        <property name="validator"><ref bean="promoteValidator"/></property>
+        <property name="formView"><value>promotion</value></property>
+        <property name="successView"><value>success</value></property>
+    </bean> 
     
     <bean name="database" class="go.dto.Database"/>
     

@@ -14,6 +14,7 @@
             <li><a href="myrides.htm">My rides</a></li>
             <li><a href="upcoming.htm">Upcoming</a></li> 
             <li><a href="#">Management</a></li> 
+            ${adm}
             <li><a href="logout.htm">Logout</a></li>
         </ul>
         <a href="#" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a>   
