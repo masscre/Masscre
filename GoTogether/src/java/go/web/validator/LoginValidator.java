@@ -26,7 +26,7 @@ public class LoginValidator implements Validator {
         }
         else if (login.getPassword() == null || login.getPassword().length() == 0) {
             errors.rejectValue("password", "error.empty.field", "Please enter password");            
-        } 
+        }
         else if (!Database.database.userExist(login.getUsername())) {
             errors.rejectValue("username", "unknown.user", "Unknown User");            
         }        

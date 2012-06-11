@@ -35,6 +35,7 @@
                 <prop key="removeuser.htm">removeUserController</prop>
                 <prop key="removeuserok.htm">removeUserOkController</prop>
                 <prop key="promotion.htm">promoteController</prop>
+                <prop key="addfriend.htm">addfriendController</prop>
             </props>
         </property>
     </bean>
@@ -71,7 +72,8 @@
           class="go.web.controller.RemoveUserController" />
           
     <bean name="removeUserOkController"
-          class="go.web.controller.RemoveUserOkController" />
+          class="go.web.controller.RemoveUserOkController" />         
+          
    
    
     
@@ -79,6 +81,8 @@
     <bean id="registrationValidator" class="go.web.validator.RegistrationValidator"/>   
     <bean id="addrideValidator" class="go.web.validator.AddrideValidator"/> 
     <bean id="promoteValidator" class="go.web.validator.PromoteValidator"/>  
+    <bean id="addfriendValidator" class="go.web.validator.AddfriendValidator"/> 
+    
     <bean id="indexController" class="go.web.controller.LoginFormController">
 	<property name="sessionForm"><value>false</value></property>
         <property name="commandName"><value>login</value></property>
@@ -112,6 +116,15 @@
         <property name="commandClass"><value>go.web.model.Promote</value></property>
         <property name="validator"><ref bean="promoteValidator"/></property>
         <property name="formView"><value>promotion</value></property>
+        <property name="successView"><value>success</value></property>
+    </bean> 
+    
+    <bean name="addfriendController" class="go.web.controller.AddfriendController">
+        <property name="sessionForm"><value>false</value></property>
+        <property name="commandName"><value>addfriend</value></property>
+        <property name="commandClass"><value>go.web.model.Friend</value></property>
+        <property name="validator"><ref bean="addfriendValidator"/></property>
+        <property name="formView"><value>addfriend</value></property>
         <property name="successView"><value>success</value></property>
     </bean> 
     

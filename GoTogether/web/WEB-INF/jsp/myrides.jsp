@@ -15,18 +15,20 @@
                   
         <ul>
             <li><a href="main.htm">Home</a></li>  
-            <li><a href="#">My rides</a></li>
+            <li><a href="#"><font color="white">My rides</font></a></li>
             <li><a href="upcoming.htm">Upcoming</a></li> 
             <li><a href="management.htm">Management</a></li> 
             ${adm}
             <li><a href="logout.htm">Logout</a></li>
         </ul>
         <a href="#" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a> 
-        <div class="smallMenu"> 
-            <a href="addride.htm">
-                <img src="img/plus.png"/>
-            </a>
-        </div>       
+        <div class="divide_menu">
+            &#32;
+        </div>
+
+        <ul>
+            <li><a href="addride.htm"><i>Add ride</i></a></li>               
+        </ul>        
         
         
         <div class="content">

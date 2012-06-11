@@ -18,7 +18,7 @@
                 <div class="register"><a href="main.htm"><img src="img/home.png"/></a></div>
             </div>
         <div class="register_content">            
-            <div class="devide"></div>
+            <div class="dIvide"></div>
             <h1>Do you really remove user ${username} ?</h1>
             <div class="register_submit"><a href="removeuserok.htm?id=${deleteId}">Yes</div>
         </div>    

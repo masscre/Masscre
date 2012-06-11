@@ -18,7 +18,7 @@
             <div class="register"><a href="main.htm"><img src="img/home.png"/></a></div>
         </div>
         <div class="register_content">            
-            <div class="devide"></div>
+            <div class="divide"></div>
             <h1>Promote user ${username} to level</h1>
             <form:form commandName="promote" method="POST" name="promote">
                 <p>

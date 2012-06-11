@@ -41,6 +41,15 @@ public class RegistrationValidator implements Validator {
             ok = false;
         }
         
+        if (reg.getEmail() == null || reg.getEmail().length() == 0) {
+            errors.rejectValue("email", "error.empty.field", "Please enter email.");  
+            ok = false;
+        } else {
+        
+        if (!reg.getEmail().matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
+            errors.rejectValue("email", "error.empty.field", "Incorect email address."); 
+        } }
+        
         if (Database.database.userExist(reg.getUsername()) == true) {
             errors.rejectValue("username", "error.empty.field", "Username is taken. Please use another one.");  
             ok = false;
@@ -56,7 +65,7 @@ public class RegistrationValidator implements Validator {
         }
         
         if (ok == true) {
-            Database.database.register(reg.getFirstname(), reg.getLastname(), reg.getUsername(), reg.getPassword());
+            Database.database.register(reg.getFirstname(), reg.getLastname(), reg.getUsername(), reg.getEmail(), reg.getPassword());
         }
     }
 }

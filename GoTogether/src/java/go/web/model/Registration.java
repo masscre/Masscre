@@ -7,6 +7,7 @@ public class Registration {
     private String username;
     private String password;
     private String passwordcheck;
+    private String email;
     
     public String getFirstname() {
         return firstname;
@@ -27,6 +28,12 @@ public class Registration {
     public String getPasswordcheck() {
         return passwordcheck;
     }
+
+    public String getEmail() {
+        return email;
+    }
+    
+    
     
     public void setFirstname(String firstname) {
         this.firstname = firstname;
@@ -47,4 +54,10 @@ public class Registration {
     public void setPasswordcheck(String passwordcheck) {
         this.passwordcheck = passwordcheck;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    
 }

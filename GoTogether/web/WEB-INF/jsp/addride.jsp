@@ -11,11 +11,11 @@
     <body>
         <div class="panel_corner"></div>
         <div class="panel">
-                <div class="register"><a href="main.htm"><img src="img/home.png"/></a></div>
+                <div class="register"><a href="myrides.htm"><img src="img/home.png"/></a></div>
             </div>
         <div class="register_content">
             <div class="addride_title"></div>
-            <div class="devide"></div>
+            <div class="divide"></div>
             <form:form commandName="addride" method="POST" name="addride">
                 <p>
                     <div class="register_label">Day: </div>

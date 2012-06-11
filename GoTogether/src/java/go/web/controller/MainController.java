@@ -12,12 +12,18 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class MainController extends AbstractController{
 
     Login login;
-    User user;    
+    User user; 
     
+    String firstName;
+    String lastName;
+    
+    boolean request = false;
+       
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception { 
+        HttpSession session;
         try {
-            HttpSession session = hsr.getSession();
+            session = hsr.getSession();
             login = (Login)session.getAttribute("user");  
             if (!login.loggedIn()) return new ModelAndView("redirect:index.htm");
             else {
@@ -27,8 +33,17 @@ public class MainController extends AbstractController{
             }
         } catch (Exception e) {
             return new ModelAndView("redirect:index.htm");
-        }                      
-        return new ModelAndView("main");
+        }                
+        firstName = user.getFirstname();
+        lastName = user.getLastname();  
+        
+        if (request == true) {
+            session.setAttribute("requests", "<h4>Requests: </h4>");
+        } else {
+            session.setAttribute("requests", "");
+        }
+        
+        return new ModelAndView("main", "name", firstName+" "+lastName);
     }
     
     

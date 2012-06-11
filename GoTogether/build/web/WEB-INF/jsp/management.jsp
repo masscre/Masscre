@@ -13,7 +13,7 @@
             <li><a href="main.htm">Home</a></li>  
             <li><a href="myrides.htm">My rides</a></li>
             <li><a href="upcoming.htm">Upcoming</a></li> 
-            <li><a href="#">Management</a></li> 
+            <li><a href="#"><font color="white">Management</font></a></li> 
             ${adm}
             <li><a href="logout.htm">Logout</a></li>
         </ul>

@@ -24,7 +24,7 @@ public class PromoteValidator implements Validator {
     @Override
     public void validate(Object obj, Errors errors) {
         Promote tempPromote = (Promote) obj;   
-        if (tempPromote.getLevel() <= 0 || tempPromote.getLevel() > 3) {
+        if (tempPromote.getLevel() < 0 || tempPromote.getLevel() > 3) {
             errors.rejectValue("level", "error.empty.field", "Level format is wrong. Posible values are 1, 2, 3"); 
         }
     }

@@ -19,11 +19,20 @@ public class User {
     private ArrayList<Ride> rides;
     private List<Ride> onBoardOn;
     
-    public User(String username, int rights, String id) {
+    public User(String username, int rights, String id, String firstName, String lastName) {
         this.username = username;
         this.rights = rights;
+        this.firstname = firstName;
+        this.lastname = lastName;
         this.logged = true; 
         this.id = id;
+    }
+    
+    public User(String firstname, String lastname, String username, String email, String id) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.email = email;
     }
     
     public User(){}

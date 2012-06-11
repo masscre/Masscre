@@ -13,7 +13,7 @@
       <div class="title"></div>           
       <div class="register_content">
           <div class="register_title"></div>
-          <div class="devide"></div>
+          <div class="divide"></div>
           <form:form commandName="register" method="POST" name="register">
               <p>
                 <div class="register_label">Firstname: </div>
@@ -26,6 +26,10 @@
               <p>
                 <div class="register_label">Username: </div>
                 <div class="register_input"><form:input path="username"/></div>
+              </p>
+              <p>
+                <div class="register_label">Email: </div>
+                <div class="register_input"><form:input path="email"/></div>
               </p>
               <p>
                 <div class="register_label">Password: </div>
@@ -43,6 +47,7 @@
                     <br><form:errors path="firstname"/></br>
                     <br><form:errors path="lastname"/></br>
                     <br><form:errors path="username"/></br>
+                    <br><form:errors path="email"/></br>
                     <br><form:errors path="password"/></br>
                     <br><form:errors path="passwordcheck"/></br>
                 </font> 
