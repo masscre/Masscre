@@ -53,10 +53,12 @@ public class MainController extends AbstractController{
         if (request == true) {
             session.setAttribute("requests", "<h4>Friends requests: </h4>");
             String requestsTable = "<table>";
-            User user1 = Database.database.getUser(requestsList);
-            requestsTable += "<tr><td>"+user1.getFirstname()+"</td></tr>";            
-            requestsTable += "</table>";
-            session.setAttribute("requestsTable", requestsTable);
+            try {
+                User user1 = Database.database.getUser(requestsList);
+                requestsTable += "<tr><td>"+user1.getFirstname()+"</td></tr>";            
+                requestsTable += "</table>";
+                session.setAttribute("requestsTable", requestsTable);
+            } catch (Exception e) {}
         } else {
             session.setAttribute("requests", "");
         }
