@@ -315,10 +315,10 @@ public class Database {
     
     public void addFriendRequestToUser(String userId, String friendId) {
         BasicDBObject query = new BasicDBObject();
-        query.put("_id", new ObjectId(userId));
+        query.put("_id", new ObjectId(friendId));
         DBObject user = users.findOne(query);
-        user.put("request", friendId);
-        users.apply(user);
+        user.put("request", userId);
+        users.save(user);
     }
     
     public String getUserFriendsRequests(String userId) {        
