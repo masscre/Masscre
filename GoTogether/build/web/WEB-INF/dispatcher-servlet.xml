@@ -36,6 +36,8 @@
                 <prop key="removeuserok.htm">removeUserOkController</prop>
                 <prop key="promotion.htm">promoteController</prop>
                 <prop key="addfriend.htm">addfriendController</prop>
+                <prop key="addfriendlist.htm">addfriendlistController</prop>
+                <prop key="addfriendconfirm.htm">addfriendconfirmController</prop>
             </props>
         </property>
     </bean>
@@ -72,7 +74,13 @@
           class="go.web.controller.RemoveUserController" />
           
     <bean name="removeUserOkController"
-          class="go.web.controller.RemoveUserOkController" />         
+          class="go.web.controller.RemoveUserOkController" /> 
+          
+    <bean name="addfriendlistController"
+          class="go.web.controller.AddFriendListController" />
+          
+    <bean name="addfriendconfirmController"
+          class="go.web.controller.AddFriendConfirmController" />
           
    
    

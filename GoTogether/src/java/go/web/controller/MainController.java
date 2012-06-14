@@ -1,7 +1,10 @@
 package go.web.controller;
 
+import go.dto.Database;
 import go.web.model.Login;
 import go.web.model.User;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -37,11 +40,28 @@ public class MainController extends AbstractController{
         firstName = user.getFirstname();
         lastName = user.getLastname();  
         
+        String requestsList = "";
+        try {
+            requestsList = Database.database.getUserFriendsRequests(user.getId().toString());  
+            System.out.println(requestsList);
+        } catch (Exception e) {
+            
+        }
+        
+        if (!requestsList.equals("")) request = true;
+        
         if (request == true) {
-            session.setAttribute("requests", "<h4>Requests: </h4>");
+            session.setAttribute("requests", "<h4>Friends requests: </h4>");
+            String requestsTable = "<table>";
+            User user1 = Database.database.getUser(requestsList);
+            requestsTable += "<tr><td>"+user1.getFirstname()+"</td></tr>";            
+            requestsTable += "</table>";
+            session.setAttribute("requestsTable", requestsTable);
         } else {
             session.setAttribute("requests", "");
         }
+        
+        
         
         return new ModelAndView("main", "name", firstName+" "+lastName);
     }

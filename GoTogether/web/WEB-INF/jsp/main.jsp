@@ -34,6 +34,7 @@
         <div class="divide"/>
 
         ${requests}
+        ${requestsTable}
 
         <div class="divide"/>
 

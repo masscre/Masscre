@@ -80,6 +80,34 @@ public class Database {
         }
         return usersArray;
     }
+    
+    public User getUser(String id) {
+        try {
+            User user = null;
+            BasicDBObject query = new BasicDBObject();
+            query.put("_id", new ObjectId(id));
+            DBObject findOne = users.findOne(query);
+            String firstname = "";
+            String lastname = "";
+            String username = "";
+            String email = "";
+            try {
+                firstname = findOne.get("firstname").toString();
+            } catch (Exception e) {}
+            try {
+                lastname = findOne.get("lastname").toString();
+            } catch (Exception e) {}
+            try {
+                username = findOne.get("username").toString();
+            } catch (Exception e) {}
+            try {
+                email = findOne.get("email").toString();
+            } catch (Exception e) {}
+            user = new User(firstname, lastname, username, email, id);
+            return user;
+        } catch (Exception e) {}
+        return null;
+    }
 
     public void addRide(ObjectId userId, Ride ride) {
         BasicDBObject query = new BasicDBObject();
@@ -283,5 +311,21 @@ public class Database {
             }
         }
         return usr;
+    }
+    
+    public void addFriendRequestToUser(String userId, String friendId) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(userId));
+        DBObject user = users.findOne(query);
+        user.put("request", friendId);
+        users.apply(user);
+    }
+    
+    public String getUserFriendsRequests(String userId) {        
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(userId));
+        DBObject user = users.findOne(query);
+        System.out.println(user.get("request").toString());
+        return user.get("request").toString();
     }
 }
