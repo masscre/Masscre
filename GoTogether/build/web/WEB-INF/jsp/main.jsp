@@ -27,7 +27,7 @@
             <li><a href="addfriend.htm"><i>Add friend</i></a></li>               
         </ul>    
 
-        <a href="#" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a>
+        <a href="inbox.htm" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a>
         <h3>Logged as: ${name}</h3>       
 
 
@@ -47,6 +47,7 @@
                 <td>Send mesage</td>
                 <td>Edit</td>
             </tr>
+            ${friendsList}
         </table>
 
     </body>

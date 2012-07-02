@@ -3,6 +3,7 @@ package go.dto;
 import com.mongodb.*;
 import go.web.model.Ride;
 import go.web.model.User;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
@@ -15,6 +16,8 @@ import java.util.logging.Logger;
 import javax.crypto.SecretKey;
 import org.bson.types.ObjectId;
 import go.utils.Text;
+import go.web.model.Group;
+import go.web.model.Message;
 
 public class Database {
 
@@ -22,6 +25,7 @@ public class Database {
     private DB db;
     private DBCollection users;
     private DBCollection rides;
+    private DBCollection groups;
     public static Database database = new Database();
 
     Database() {
@@ -30,6 +34,7 @@ public class Database {
             this.db = mongo.getDB("gotogether");
             this.users = db.getCollection("users");
             this.rides = db.getCollection("rides");
+            this.groups = db.getCollection("groups");
         } catch (UnknownHostException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("DATABASE: No connection");
@@ -53,12 +58,45 @@ public class Database {
         DBObject user = users.findOne(query);
         return user.get("username").toString();
     }
+    
+    public String getGroupName(String id) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        DBObject user = groups.findOne(query);
+        return user.get("groupName").toString();
+    }
 
     public void removeUser(String id) {
         BasicDBObject query = new BasicDBObject();
         query.put("_id", new ObjectId(id));
         DBObject user = users.findAndRemove(query);
         System.out.println("DATABASE: removing user " + user.get("username"));
+    }
+    
+    public void removeGroup(String id) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        DBObject group = groups.findAndRemove(query);
+        System.out.println("DATABASE: removing group " + group.get("groupName"));
+        String userId = (String) group.get("owner");
+        BasicDBObject query2 = new BasicDBObject();
+        query2.put("_id", new ObjectId(userId));
+        DBObject user = users.findOne(query2);
+        ArrayList<String> groupsList = new ArrayList();
+        try {
+            groupsList = (ArrayList<String>) user.get("groups");
+        } catch (Exception e) {}
+        if (groupsList == null) groupsList = new ArrayList();
+        Iterator it = groupsList.iterator();
+        ArrayList<String> newList = new ArrayList();
+        while(it.hasNext()) {
+            String i = (String) it.next();
+            if (!i.equals(id)) {
+                newList.add(i);
+            }
+        }
+        user.put("groups", newList);
+        users.save(user);
     }
 
     public ArrayList<User> getUsers() {
@@ -317,15 +355,190 @@ public class Database {
         BasicDBObject query = new BasicDBObject();
         query.put("_id", new ObjectId(friendId));
         DBObject user = users.findOne(query);
-        user.put("request", userId);
+        List friendsRequests = null;
+        try {
+            friendsRequests = (List) user.get("friendsRequests");
+        } catch (Exception e) {}
+        if (friendsRequests == null) {
+            friendsRequests = new ArrayList();
+        }
+        friendsRequests.add(userId);
+        user.put("friendsRequests", friendsRequests);
         users.save(user);
     }
     
-    public String getUserFriendsRequests(String userId) {        
+    public List getUserFriendsRequests(String userId) {        
         BasicDBObject query = new BasicDBObject();
         query.put("_id", new ObjectId(userId));
         DBObject user = users.findOne(query);
-        System.out.println(user.get("request").toString());
-        return user.get("request").toString();
+        List list = new ArrayList();
+        try {
+            list = (List) user.get("friendsRequests");
+        } catch (Exception e) {            
+        }      
+        try {
+            list.isEmpty();
+        } catch (Exception e){
+            return new ArrayList();
+        }
+        return list;
     }
+    
+    public List<User> getUserFriendsList(String userId) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(userId));
+        DBObject user = users.findOne(query);
+        List list = new ArrayList();
+        try {
+            list = (List) user.get("friendsList");            
+        } catch (Exception e) {
+            return new ArrayList();
+        }
+        return list;
+    }
+    
+    public void confirmFriend(String userId, String friendId) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(userId));
+        DBObject user = users.findOne(query);
+        List list = null;        
+        try {
+            list = (List) user.get("friendsRequests");
+        } catch(Exception e) {}
+        try {
+            List list2 = new ArrayList();
+            Iterator it = list.iterator();
+            while(it.hasNext()) {
+                String id = (String) it.next();
+                if (!friendId.equals(id)) {
+                    list2.add(id);
+                }
+            }         
+            user.put("friendsRequests", list2);
+            users.save(user);
+            addFriend(userId, friendId);
+            addFriend(friendId, userId);
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+        
+    }
+    
+    public void addFriend(String userId, String friendId) {
+        if (isFriendOf(userId, friendId) == true) return;
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(userId));
+        DBObject user = users.findOne(query);
+        List friendsList = null;
+            try {
+                friendsList = (List) user.get("friendsList");
+            } catch (Exception e) {}
+            try {
+                friendsList.isEmpty();
+            } catch (Exception e) {
+                friendsList = new ArrayList();
+            }
+        friendsList.add(friendId);
+        user.put("friendsList", friendsList);
+        users.save(user);
+    }
+    
+    public void rejectFriend(String userId, String friendId) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(userId));
+        DBObject user = users.findOne(query);
+        List list = null;
+        try {
+            list = (List) user.get("friendsRequests");
+        } catch (Exception e) {}
+        try {
+            List list2 = new ArrayList();
+            Iterator it = list.iterator();
+            while(it.hasNext()) {
+                String id = (String) it.next();
+                if (!friendId.equals(id)) {
+                    list2.add(id);
+                }
+            }
+            user.put("friendsRequests", list2);
+        } catch (Exception e) {}
+        users.save(user);
+    }
+    
+    public boolean isFriendOf(String userId, String friendId) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(userId));        
+        DBObject user = users.findOne(query);
+        List list = new ArrayList();
+        try {
+            list = (ArrayList) user.get("friendsList");
+        } catch (Exception e) {}
+        if (list == null) return false;
+        if (list.contains(friendId)) return true;
+        return false;
+    }
+    
+    public ArrayList<Group> getUserGroups(String userId) {
+        ArrayList<Group> groupsList = new ArrayList();
+        ArrayList<String> groupsId = new ArrayList();
+        DBObject user = users.findOne(new ObjectId(userId));
+        groupsId = (ArrayList<String>) user.get("groups");
+        Iterator it = groupsId.iterator();
+        while(it.hasNext()) {
+            Group group = new Group();
+            String groupId = (String) it.next();
+            DBObject groupDb = groups.findOne(new ObjectId(groupId));
+            String groupName = groupDb.get("groupName").toString();            
+            group.setGroupName(groupName);
+            group.setId(groupId);
+            group.setMembers((ArrayList<String>)groupDb.get("members"));
+            group.setOwner(userId);
+            groupsList.add(group);
+        }
+        return groupsList;
+    }
+    
+    public void addGroupToUser(String userId, Group group) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("groupName", group.getGroupName());
+        query.put("owner", userId);
+        query.put("members", new ArrayList<String>());
+        groups.save(query);
+        DBObject groupDb = groups.findOne(query);
+        String groupId = groupDb.get("_id").toString();
+        BasicDBObject query2 = new BasicDBObject();
+        query2.put("_id", new ObjectId(userId));
+        DBObject userDb = users.findOne(query2);
+        ArrayList groupsList;
+        try {
+            groupsList = (ArrayList) userDb.get("groups");
+        } catch (Exception e) {
+            groupsList = new ArrayList<Group>();
+        }
+        if (groupsList == null) {
+            groupsList = new ArrayList<Group>();
+        }
+        groupsList.add(groupId);
+        userDb.put("groups", groupsList);
+        users.save(userDb);
+        
+    }
+    
+    public void sendMessage(Message message) throws IOException {
+        String receiverId = message.getTo();
+        DBObject receiver = users.findOne(new ObjectId(receiverId));
+        ArrayList messages;
+        try {
+            messages = (ArrayList) receiver.get("messages");
+        } catch (Exception e) {
+            messages = new ArrayList();
+        }
+        if (messages == null) {
+            messages = new ArrayList();
+        }
+        messages.add(message.Serialize());
+        receiver.put("messages", messages);
+        users.save(receiver);
+    }
+    
 }

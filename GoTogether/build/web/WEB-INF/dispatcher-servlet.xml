@@ -38,6 +38,14 @@
                 <prop key="addfriend.htm">addfriendController</prop>
                 <prop key="addfriendlist.htm">addfriendlistController</prop>
                 <prop key="addfriendconfirm.htm">addfriendconfirmController</prop>
+                <prop key="confirmfriend.htm">confirmfriendController</prop>
+                <prop key="groups.htm">groupsController</prop>
+                <prop key="addgroup.htm">addgroupController</prop>
+                <prop key="groupremove.htm">groupremoveController</prop>
+                <prop key="groupremoveok.htm">groupRemoveOkController</prop>
+                <prop key="inbox.htm">inboxController</prop>
+                <prop key="newmessagelist.htm">newmessagelistController</prop>
+                <prop key="newmessage.htm">newmessageController</prop>
             </props>
         </property>
     </bean>
@@ -82,7 +90,23 @@
     <bean name="addfriendconfirmController"
           class="go.web.controller.AddFriendConfirmController" />
           
-   
+    <bean name="confirmfriendController"
+          class="go.web.controller.ConfirmFriendController" />
+          
+    <bean name="groupsController"
+          class="go.web.controller.GroupsController" />
+          
+    <bean name="groupremoveController"
+          class="go.web.controller.GroupRemoveController" />
+          
+    <bean name="groupRemoveOkController"
+          class="go.web.controller.GroupRemoveOkController" />
+          
+    <bean name="inboxController"
+          class="go.web.controller.InboxController" />
+          
+    <bean name="newmessagelistController"
+          class="go.web.controller.NewMessageListController" />
    
     
     <bean id="loginValidator" class="go.web.validator.LoginValidator"/>
@@ -90,6 +114,8 @@
     <bean id="addrideValidator" class="go.web.validator.AddrideValidator"/> 
     <bean id="promoteValidator" class="go.web.validator.PromoteValidator"/>  
     <bean id="addfriendValidator" class="go.web.validator.AddfriendValidator"/> 
+    <bean id="addgroupValidator" class="go.web.validator.AddgroupValidator"/> 
+    <bean id="newmessageValidator" class="go.web.validator.NewMessageValidator"/> 
     
     <bean id="indexController" class="go.web.controller.LoginFormController">
 	<property name="sessionForm"><value>false</value></property>
@@ -135,6 +161,24 @@
         <property name="formView"><value>addfriend</value></property>
         <property name="successView"><value>success</value></property>
     </bean> 
+    
+    <bean name="addgroupController" class="go.web.controller.AddGroupController">
+        <property name="sessionForm"><value>false</value></property>
+        <property name="commandName"><value>addgroup</value></property>
+        <property name="commandClass"><value>go.web.model.Group</value></property>
+        <property name="validator"><ref bean="addgroupValidator"/></property>
+        <property name="formView"><value>addgroup</value></property>
+        <property name="successView"><value>success</value></property>
+    </bean>
+    
+    <bean name="newmessageController" class="go.web.controller.NewMessageController">
+        <property name="sessionForm"><value>false</value></property>
+        <property name="commandName"><value>sendmessage</value></property>
+        <property name="commandClass"><value>go.web.model.Message</value></property>
+        <property name="validator"><ref bean="newmessageValidator"/></property>
+        <property name="formView"><value>newmessage</value></property>
+        <property name="successView"><value>success</value></property>
+    </bean>
     
     <bean name="database" class="go.dto.Database"/>
     

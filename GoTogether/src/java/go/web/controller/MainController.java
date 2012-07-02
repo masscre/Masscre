@@ -5,6 +5,7 @@ import go.web.model.Login;
 import go.web.model.User;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -40,22 +41,29 @@ public class MainController extends AbstractController{
         firstName = user.getFirstname();
         lastName = user.getLastname();  
         
-        String requestsList = "";
+        session.removeAttribute("requests");
+        session.removeAttribute("requestTable");
+        
+        List requestsList = null;
         try {
-            requestsList = Database.database.getUserFriendsRequests(user.getId().toString());  
-            System.out.println(requestsList);
-        } catch (Exception e) {
-            
+            requestsList = Database.database.getUserFriendsRequests(user.getId().toString());              
+        } catch (Exception e) {             
         }
         
-        if (!requestsList.equals("")) request = true;
+        if (!requestsList.isEmpty()) request = true;        
         
-        if (request == true) {
+        if (request == true) {            
             session.setAttribute("requests", "<h4>Friends requests: </h4>");
-            String requestsTable = "<table>";
-            try {
-                User user1 = Database.database.getUser(requestsList);
-                requestsTable += "<tr><td>"+user1.getFirstname()+"</td></tr>";            
+            String requestsTable = "<table width=\"600px\" border=\"1\" bgcolor=\"0DD939\">";
+            requestsTable += "<tr><td>Firstname</td><td>Lastname</td><td>Reject</td><td>Accept</td></tr>";
+            try {  
+                Iterator it = requestsList.iterator();
+                while(it.hasNext()) {
+                    User u = Database.database.getUser((String)it.next());                    
+                    requestsTable += "<tr><td>"+u.getFirstname()+"</td><td>"+u.getLastname()+"</td>"
+                            + "<td><a href=\"rejectfriend.htm?id="+u.getId().toString()+"\">reject</a></td>"
+                            + "<td><a href=\"confirmfriend.htm?id="+u.getId().toString()+"\">accept</tr>";
+                }                                         
                 requestsTable += "</table>";
                 session.setAttribute("requestsTable", requestsTable);
             } catch (Exception e) {}
@@ -63,6 +71,20 @@ public class MainController extends AbstractController{
             session.setAttribute("requests", "");
         }
         
+        try {
+            String friendList = "";
+            List friendsList = Database.database.getUserFriendsList(user.getId().toString());
+            Iterator it = friendsList.iterator();
+            while(it.hasNext()) {
+                User u = Database.database.getUser((String)it.next());                
+                friendList += "<tr><td>"+u.getFirstname()+"</td><td>"+u.getLastname()+
+                        "<td>"+"-"+"</td>"+"<td>"+"<a href=\"newmessage.htm?id="+u.getId().toString()+"\"> message </a>"
+                        +"</td>"+"<td><a href=\"editfriend.htm?id="+u.getId().toString()+"\">edit</a></td>"+"</tr>";
+            }
+            session.setAttribute("friendsList", friendList);
+        } catch(Exception e) {
+            
+        }     
         
         
         return new ModelAndView("main", "name", firstName+" "+lastName);
