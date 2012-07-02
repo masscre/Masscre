@@ -1,6 +1,7 @@
 package go.web.model;
 
 import go.dto.Database;
+import go.utils.Hash;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -21,8 +22,15 @@ public class Message implements Serializable{
     private String to;
     private boolean readed = false;
     private String sendDate;
+    private String id;
     
     public Message() {}
+    
+    public String getSenderInfo() {
+        User user = Database.database.getUser(from);
+        String info = user.getFirstname()+" "+user.getLastname();
+        return info;
+    }
     
     public byte[] Serialize() throws IOException {
         ObjectOutput out;
@@ -37,8 +45,8 @@ public class Message implements Serializable{
     public static Message Deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
         ObjectInputStream in;
         in = new ObjectInputStream(new ByteArrayInputStream(bytes));
-        Message message = (Message) in.readObject();
-        in.close();
+        Message message = (Message) in.readObject();        
+        in.close();        
         return message;
     }
     
@@ -56,7 +64,7 @@ public class Message implements Serializable{
         this.sendDate = getDateTime();
     }
     
-    public void sendMessage() {
+    public void sendMessage() throws IOException {
         Database.database.sendMessage(this);
     }
     
@@ -88,6 +96,11 @@ public class Message implements Serializable{
         return to;
     }
 
+    public String getId() {
+        return id;
+    }   
+    
+
     public void setFrom(String from) {
         this.from = from;
     }
@@ -112,7 +125,9 @@ public class Message implements Serializable{
         this.to = to;
     }
     
-    
+    public void setId() {
+        this.id = Hash.hashToSha(sendDate+from);
+    }
     
     
     

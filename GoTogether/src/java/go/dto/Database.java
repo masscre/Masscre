@@ -541,4 +541,24 @@ public class Database {
         users.save(receiver);
     }
     
+    public ArrayList getUserMessages(String userId) throws IOException, ClassNotFoundException {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(userId));
+        DBObject user = users.findOne(query);
+        ArrayList messagesByte;
+        try {
+            messagesByte = (ArrayList) user.get("messages");
+        } catch (Exception e) {
+            messagesByte = new ArrayList();
+        }   
+        ArrayList messages = new ArrayList();
+        Iterator it = messagesByte.iterator();
+        while(it.hasNext()) {
+            byte[] m = (byte[]) it.next();            
+            Message message = Message.Deserialize(m);
+            messages.add(message);
+        }
+        return messages;        
+    }
+    
 }
