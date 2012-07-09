@@ -23,7 +23,6 @@
         </div>
 
         <ul>
-            <li><a href="#"><i>Account</i></a></li> 
             <li><a href="groups.htm"><i>Groups</i></a></li>               
         </ul>   
      

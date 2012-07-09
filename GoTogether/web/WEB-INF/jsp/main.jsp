@@ -39,7 +39,7 @@
         <div class="divide"/>
 
         <h4>Friends list: </h4>
-        <table width="600px" border="1" bgcolor="0DD939">
+        <table width="600px" border="1" bgcolor="64cc18">
             <tr>
                 <td>Firstname</td>
                 <td>Lastname</td>

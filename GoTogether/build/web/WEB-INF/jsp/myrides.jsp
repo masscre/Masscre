@@ -32,7 +32,7 @@
         
         
         <div class="content">
-            <table width="600px" border="1" bgcolor="0DD939">                
+            <table width="600px" border="1" bgcolor="64cc18">                
                 <tr>
                     <td>Date</td>
                     <td>Time</td>

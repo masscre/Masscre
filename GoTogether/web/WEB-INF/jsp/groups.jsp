@@ -24,14 +24,17 @@
         </div>
 
         <ul>
-            <li><a href="management.htm"><i>Account</i></a></li> 
             <li><a href="groups.htm"><i><font color="white">Groups</font></i></a></li>               
         </ul>   
         
-        <a href="addgroup.htm">Add group</a>
+        <div class="divide_menu">
+            &#32;
+        </div>
+        
+        <a href="addgroup.htm"><img src="img/plusgroup.png" /></a>
         
         <div class="content">
-            <table width="600px" border="1" bgcolor="0DD939">                
+            <table width="600px" border="1" bgcolor="64cc18">                
                 <tr>
                     <td>Group name</td>
                     <td>Edit</td>
