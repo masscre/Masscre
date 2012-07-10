@@ -16,24 +16,22 @@
     
 
     <body>
+            
+        <a class="btn_register" href="register.htm">REGISTER</a>
+        
         <div class="main">  
             
-            <div class="panel_corner"></div>
-            <div class="panel">
-                <div class="register"><a href="register.htm"><img src="img/register.png"/></a></div>
-            </div>
+            <h1 class="title">Go<br>Together</h1>            
             
-            <div class="title"></div>            
             
-            <div class="login_window">
-                <div class="login">
-                    <form:form commandName="login" method="POST" name="login">
+                
+                    <form:form class="form_login" commandName="login" method="POST" name="login">
                         <table>
                             <tr>
-                                <td>Username:</td> <td><form:input path="username"/></td>
+                                <td class="align_right">Username:</td> <td><form:input path="username"/></td>
                             </tr>
                             <tr>
-                                <td>Password:</td> <td><form:password path="password"/></td>
+                                <td class="align_right">Password:</td> <td><form:password path="password"/></td>
                             </tr>                             
                             <tr>
                                 <td></td><td><input type="submit" value="Login" onClick="submitLoginForm()"></td>
@@ -45,9 +43,8 @@
                                 <td></td><td><font color="red"><form:errors path="password"/></font></td>
                             </tr>                           
                         </table>
-                    </form:form>
-                </div>    
-            </div>
+                    </form:form> 
+            
         </div>
     </body>
 </html>

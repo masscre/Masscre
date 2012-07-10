@@ -9,27 +9,29 @@
         <link href="favicon.png" rel="icon" type="image/png" />
         <title>GoTogether</title>
     </head>
-    <body>                   
-        <ul>
-            <li><a href="#"><font color="white">Home</font></a></li>  
+    <body>    
+        <div class="main">
+        <ul class="menu">
+            <li><a href="#" class="active">Home</a></li>  
             <li><a href="myrides.htm">My rides</a></li>
             <li><a href="upcoming.htm">Upcoming</a></li> 
             <li><a href="management.htm">Management</a></li> 
             ${adm}
             <li><a href="logout.htm">Logout</a></li>                         
         </ul>
+        <div class="user_info">
+                Logged as: ${name}
+        </div>    
 
         <div class="divide_menu">
             &#32;
         </div>
 
-        <ul>
-            <li><a href="addfriend.htm"><i>Add friend</i></a></li>               
+        <ul class="submenu">
+            <li><a href="addfriend.htm">Add friend</a></li>               
         </ul>    
 
-        <a href="inbox.htm" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a>
-        <h3>Logged as: ${name}</h3>       
-
+        <a href="inbox.htm" class="btn_inbox"><img src="img/envelope.png"/></a>
 
         <div class="divide"/>
 
@@ -38,9 +40,9 @@
 
         <div class="divide"/>
 
-        <h4>Friends list: </h4>
-        <table width="600px" border="1" bgcolor="64cc18">
-            <tr>
+        <h1 class="table_title">Friend list:</h1>
+        <table>
+            <tr class="title">
                 <td>Firstname</td>
                 <td>Lastname</td>
                 <td>Group</td>
@@ -49,6 +51,6 @@
             </tr>
             ${friendsList}
         </table>
-
+        </div>
     </body>
 </html>
