@@ -30,7 +30,7 @@ public class Database {
 
     Database() {
         try {
-            this.mongo = new Mongo("masscre.cz");
+            this.mongo = new Mongo("localhost");
             this.db = mongo.getDB("gotogether");
             this.users = db.getCollection("users");
             this.rides = db.getCollection("rides");
@@ -176,7 +176,17 @@ public class Database {
         BasicDBObject query = new BasicDBObject();
         query.put("_id", userId);
         DBObject user = users.findOne(query);
-        ArrayList<String> ridesStringId = (ArrayList<String>) user.get("rides");
+        ArrayList<String> ridesStringId = new ArrayList();
+        try {
+            ridesStringId = (ArrayList<String>) user.get("rides");
+        } catch (Exception e) {
+            return null;
+        }
+        
+        if (ridesStringId == null) {
+            return null;
+        }
+        
         Iterator it = ridesStringId.iterator();
         ArrayList<Ride> rideList = new ArrayList<Ride>();
         while (it.hasNext() == true) {
@@ -197,6 +207,27 @@ public class Database {
             rideList.add(r);
         }
         return rideList;
+    }
+    
+    public ArrayList<Ride> getUpcomingRides(String userId) {
+        ArrayList<Ride> upcomingRides = new ArrayList();
+        ArrayList<User> friends = (ArrayList<User>) getUserFriendsList(userId);
+        if (friends != null) {
+            Iterator it = friends.iterator();        
+            while(it.hasNext()) {
+                User friend = getUser((String)it.next());            
+                ArrayList<Ride> friendRides;
+                friendRides = getUserRides(friend.getId());
+                if (friendRides != null) {
+                    for(int i = 0; i < friendRides.size(); i++) {
+                    Ride r = friendRides.get(i);                    
+                    r.setOwnerName(friend.getFirstname()+" "+friend.getLastname());
+                    upcomingRides.add(r);
+                    }
+                }                
+            }
+        }
+        return upcomingRides;
     }
 
     public User login(String username, String password) {
@@ -556,9 +587,31 @@ public class Database {
         while(it.hasNext()) {
             byte[] m = (byte[]) it.next();            
             Message message = Message.Deserialize(m);
+            System.out.println(message.isReaded());
             messages.add(message);
         }
         return messages;        
+    }
+    
+    public Message readMessage(String userId, String id) throws IOException, ClassNotFoundException {
+        ArrayList messages = getUserMessages(userId);
+        ArrayList messagesNew = new ArrayList();
+        Iterator it = messages.iterator();
+        Message r = new Message();
+        while(it.hasNext()) {
+            Message m = (Message) it.next();
+            m.setReaded(true);
+            if (m.getId().equals(id)) {
+                m.setReaded(true);                
+                r = m;                
+            }
+            messagesNew.add(m.Serialize());
+        }
+        BasicDBObject query = new BasicDBObject();
+        DBObject user = users.findOne(query);        
+        user.put("messages", messagesNew);        
+        users.save(user);
+        return r;        
     }
     
 }

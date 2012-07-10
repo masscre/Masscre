@@ -15,12 +15,17 @@ public class Ride {
     private String from;
     private String to;
     private String id;
+    private String ownerName;
     
     public Ride(){}
         
     public String getHourVisual() {
         if (hour < 10) return "0"+hour;
         return ""+hour;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
     
     public String getMinuteVisual() {
@@ -42,6 +47,10 @@ public class Ride {
 
     public void setMonth(int month) {
         this.month = month;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
     }
 
     public void setYear(int year) {

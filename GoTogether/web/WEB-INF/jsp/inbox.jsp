@@ -32,7 +32,7 @@
                 <tr>
                     <td>From</td>
                     <td>Date</td>
-                    <td>Subject</td> 
+                    <td>Subject</td>                     
                     <td>Open</td>
                     <td>Delete</td>
                 </tr>
@@ -40,7 +40,7 @@
                     <tr>
                         <td><c:out value="${current.getSenderInfo()}" /></td>                        
                         <td><c:out value="${current.getSendDate()}" /></td>
-                        <td><c:out value="${current.getSubject()}" /></td>
+                        <td><c:out value="${current.getSubject()}" /></td>                        
                         <td><a href="readmessage.htm?id=${current.getId()}">OPEN</a></td>
                         <td><a href="deletemessage.htm?id=${current.getId()}">DELETE</a></td>
                     </tr>

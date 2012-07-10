@@ -46,6 +46,7 @@
                 <prop key="inbox.htm">inboxController</prop>
                 <prop key="newmessagelist.htm">newmessagelistController</prop>
                 <prop key="newmessage.htm">newmessageController</prop>
+                <prop key="readmessage.htm">readmessageController</prop>
             </props>
         </property>
     </bean>
@@ -107,6 +108,9 @@
           
     <bean name="newmessagelistController"
           class="go.web.controller.NewMessageListController" />
+          
+    <bean name="readmessageController"
+          class="go.web.controller.ReadMessageController" />
    
     
     <bean id="loginValidator" class="go.web.validator.LoginValidator"/>
