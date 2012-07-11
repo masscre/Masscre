@@ -53,7 +53,7 @@ public class MainController extends AbstractController{
         if (!requestsList.isEmpty()) request = true;        
         
         if (request == true) {            
-            session.setAttribute("requests", "<h4>Friends requests: </h4>");
+            session.setAttribute("requests", "<h1 class=\"table_title\">Friends requests: </h1>");
             String requestsTable = "<table width=\"600px\" border=\"1\" bgcolor=\"0DD939\">";
             requestsTable += "<tr><td>Firstname</td><td>Lastname</td><td>Reject</td><td>Accept</td></tr>";
             try {  
