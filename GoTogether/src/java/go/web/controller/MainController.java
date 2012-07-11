@@ -40,16 +40,15 @@ public class MainController extends AbstractController{
         }                
         firstName = user.getFirstname();
         lastName = user.getLastname();  
-        
-        session.removeAttribute("requests");
-        session.removeAttribute("requestTable");
-        
+                
         List requestsList = null;
         try {
             requestsList = Database.database.getUserFriendsRequests(user.getId().toString());              
-        } catch (Exception e) {             
+        } catch (Exception e) {   
+            session.setAttribute("requests", "");
+            session.setAttribute("requestTable", "");
         }
-        
+        if (!requestsList.isEmpty()) request = false;
         if (!requestsList.isEmpty()) request = true;        
         
         if (request == true) {            
@@ -68,7 +67,6 @@ public class MainController extends AbstractController{
                 session.setAttribute("requestsTable", requestsTable);
             } catch (Exception e) {}
         } else {
-            session.setAttribute("requests", "");
         }
         
         try {
