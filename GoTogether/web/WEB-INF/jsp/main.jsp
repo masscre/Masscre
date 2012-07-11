@@ -33,12 +33,10 @@
 
         <a href="inbox.htm" class="btn_inbox"><img src="img/envelope.png"/></a>
 
-        <div class="divide"/>
-
+        
+        
         ${requests}
         ${requestsTable}
-
-        <div class="divide"/>
 
         <h1 class="table_title">Friend list:</h1>
         <table>
