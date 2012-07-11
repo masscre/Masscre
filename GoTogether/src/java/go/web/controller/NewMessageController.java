@@ -23,7 +23,7 @@ public class NewMessageController extends SimpleFormController {
                 tempMessage.setTo(request.getParameter("id"));
                 tempMessage.setSendDate(Message.getDateTime());
                 tempMessage.setId();
-                Database.database.sendMessage(tempMessage);
+                Database.database.sendMessage(tempMessage);                
                 ModelAndView modelAndView = new ModelAndView("redirect:inbox.htm");			
 		return modelAndView;		
         }

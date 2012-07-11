@@ -19,7 +19,7 @@
             </ul>
             
             <div class="user_info">
-                Logged as: ${name}
+                ${name}
             </div>           
              
             <div class="divide_menu">

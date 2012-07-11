@@ -588,7 +588,6 @@ public class Database {
         while(it.hasNext()) {
             byte[] m = (byte[]) it.next();            
             Message message = Message.Deserialize(m);
-            System.out.println(message.isReaded());
             messages.add(message);
         }
         return messages;        
@@ -602,6 +601,10 @@ public class Database {
         while(it.hasNext()) {
             Message m = (Message) it.next();
             m.setReaded(true);
+            System.out.println(m.getId());
+            if (m.getId() == null) {
+                m.setId();
+            }                    
             if (m.getId().equals(id)) {
                 m.setReaded(true);                
                 r = m;                
@@ -613,6 +616,112 @@ public class Database {
         user.put("messages", messagesNew);        
         users.save(user);
         return r;        
+    }
+    
+    public void rideDelete(String userId, String id) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(userId));
+        DBObject user = users.findOne(query);
+        ArrayList<String> ridesUser = new ArrayList();
+        try {
+            ridesUser = (ArrayList<String>) user.get("rides");
+        } catch (Exception e) {}
+        ArrayList<String> newRidesUser = new ArrayList();
+        Iterator it = ridesUser.iterator();
+        while(it.hasNext()) {
+            String s = (String) it.next();
+            if (!s.equals(id)) {
+                newRidesUser.add(s);
+            }
+        }
+        user.put("rides", newRidesUser);
+        users.save(user);
+        
+        BasicDBObject query2 = new BasicDBObject();
+        query2.put("_id", new ObjectId(id));
+        rides.findAndRemove(query2);
+    }
+    
+    public void rideJoin(String userId, String id) throws IOException {
+        Message message = new Message();
+        message.setFrom(userId);
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        DBObject ride = rides.findOne(query);
+        String to = ride.get("userId").toString();
+        message.setTo(to);
+        message.setSubject("Your friend requested to ride");
+        message.setSendDate(Message.getDateTime());
+        
+        
+        BasicDBObject query2 = new BasicDBObject();
+        query2.put("_id", new ObjectId(userId));        
+        DBObject user = users.findOne(query2);
+        
+        message.setId();
+        
+        String firstname = "";
+        String lastname = "";
+        String from = "";
+        String to2 = "";
+        String day = "";
+        String month = "";
+        String year = "";
+        
+        
+        try {
+            firstname = user.get("firstname").toString();
+            lastname = user.get("lastname").toString();
+            from = ride.get("from").toString();
+            to2 = ride.get("to").toString();
+            day = ride.get("day").toString();
+            month = ride.get("month").toString();
+            year = ride.get("year").toString();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        message.setMessage("Your friend "+ firstname +" "+ lastname +" request to ride with you from "
+                + from + " to " + to2 + ". Date and time: " + day
+                + "/" + month + "/" + year + ".");
+        sendMessage(message);
+    }
+    
+    public void deleteMessage(String userId, String id) throws IOException, ClassNotFoundException {
+        ArrayList messages = getUserMessages(userId);
+        ArrayList messagesNew = new ArrayList();
+        Iterator it = messages.iterator();        
+        while(it.hasNext()) {
+            Message m = (Message) it.next();
+            if (!m.getId().equals(id)) {
+                messagesNew.add(m.Serialize());
+            }
+        }
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(userId));
+        DBObject user = users.findOne(query);
+        user.put("messages", messagesNew);
+        users.save(user);
+    }
+    
+    public void deleteFriend(String userId, String id) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(userId));
+        DBObject user = users.findOne(query);
+        ArrayList friendsList = new ArrayList();
+        try {
+            friendsList = (ArrayList) user.get("friendsList");
+        } catch (Exception e) {}
+        Iterator it = friendsList.iterator();
+        ArrayList newFriendsList = new ArrayList();
+        while(it.hasNext()) {
+            String s = (String) it.next();
+            if (!s.equals(id)) {
+                newFriendsList.add(s);
+            }
+        }
+        user.put("friendsList", newFriendsList);
+        users.save(user);
     }
     
 }

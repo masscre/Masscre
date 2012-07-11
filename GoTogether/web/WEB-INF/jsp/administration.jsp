@@ -22,13 +22,15 @@
             <li><a href="administration.htm" class="active">Administration</a></li> 
             <li><a href="logout.htm">Logout</a></li>
         </ul>
+            <div class="user_info">
+                ${name}
+        </div> 
         <a href="inbox.htm" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a> 
         <div class="divide_menu">
             &#32;
         </div>    
             <ul class="submenu">
-                <li><a href="#" class="active">Users</a></li>  
-                <li><a href="#"><i>Rides</i></a></li>
+                <li><a href="#" class="active">Users</a></li>                  
             </ul>
            
             <h1 class="table_title">Users: </h1>

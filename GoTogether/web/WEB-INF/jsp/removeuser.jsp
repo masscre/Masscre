@@ -18,7 +18,7 @@
                 <li><a href="main.htm">Home</a></li>            
             </ul> 
             
-            <h1 class="table_title">Do you really remove user ${username} ?</h1>
+            <h1 class="table_title">Do you really want to remove user ${username} ?</h1>
             <ul class="submenu">
                 <li><a href="removeuserok.htm?id=${deleteId}">Yes</a></li>  
                 <li><a href="administration.htm">No</a></li>
