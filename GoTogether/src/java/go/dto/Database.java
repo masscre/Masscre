@@ -284,6 +284,7 @@ public class Database {
         query.put("username", username);
         query.put("email", email);
         query.put("password", password);
+        query.put("rights", 0);
         users.save(query);
         System.out.println("### DATABASE: user " + username + " registered ... password hash: " + password);
     }
