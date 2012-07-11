@@ -41,7 +41,10 @@ public class UpcomingController extends AbstractController{
             System.out.println(e);            
         }
         
-        return new ModelAndView("upcoming");
+        String firstName = login.getUser().getFirstname();
+        String lastName = login.getUser().getLastname();  
+        
+        return new ModelAndView("upcoming" , "name", firstName+" "+lastName);
     }
     
 }

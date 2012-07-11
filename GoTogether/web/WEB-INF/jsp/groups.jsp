@@ -9,32 +9,31 @@
         <title>GoTogether</title>
     </head>
     <body> 
-                  
-        <ul>
+       <div class="main">            
+        <ul class="menu">
             <li><a href="main.htm">Home</a></li>  
             <li><a href="myrides.htm">My rides</a></li>
             <li><a href="upcoming.htm">Upcoming</a></li> 
-            <li><a href="#"><font color="white">Management</font></a></li> 
+            <li><a href="#" class="active">Management</a></li> 
             ${adm}
             <li><a href="logout.htm">Logout</a></li>
         </ul>
+            
+        <div class="user_info">
+                Logged as: ${name}
+        </div>     
+            
         <a href="inbox.htm" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a>  
-        <div class="divide_menu">
-            &#32;
-        </div>
-
-        <ul>
-            <li><a href="groups.htm"><i><font color="white">Groups</font></i></a></li>               
-        </ul>   
         
-        <div class="divide_menu">
-            &#32;
-        </div>
+        <ul class="submenu">
+            <li><a href="groups.htm" class="active">Groups</a></li>
+        </ul>        
         
-        <a href="addgroup.htm"><img src="img/plusgroup.png" /></a>
+        <h1 class="table_title">Groups:</h1>
         
-        <div class="content">
-            <table width="600px" border="1" bgcolor="64cc18">                
+        <a href="addgroup.htm">New group</a>
+        
+            <table>                 
                 <tr>
                     <td>Group name</td>
                     <td>Edit</td>
@@ -48,7 +47,7 @@
                     </tr>
                 </c:forEach>                
             </table>
-        </div>
         
+       </div> 
     </body>
 </html>

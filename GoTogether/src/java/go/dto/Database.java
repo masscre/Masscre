@@ -30,7 +30,7 @@ public class Database {
 
     Database() {
         try {
-            this.mongo = new Mongo("localhost");
+            this.mongo = new Mongo("masscre.cz");
             this.db = mongo.getDB("gotogether");
             this.users = db.getCollection("users");
             this.rides = db.getCollection("rides");

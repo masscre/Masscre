@@ -9,30 +9,34 @@
         <link rel="stylesheet" href="css/default.css" type="text/css"/>
         <link href="favicon.png" rel="icon" type="image/png" />
         <title>GoTogether</title>     
-        
+
     </head>
     <body> 
-                  
-        <ul>
-            <li><a href="main.htm">Home</a></li>  
-            <li><a href="#"><font color="white">My rides</font></a></li>
-            <li><a href="upcoming.htm">Upcoming</a></li> 
-            <li><a href="management.htm">Management</a></li> 
-            ${adm}
-            <li><a href="logout.htm">Logout</a></li>
-        </ul>
-        <a href="inbox.htm" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a> 
-        <div class="divide_menu">
-            &#32;
-        </div>
+        <div class="main">          
+            <ul class="menu">
+                <li><a href="main.htm" >Home</a></li>  
+                <li><a href="#" class="active">My rides</a></li>
+                <li><a href="upcoming.htm">Upcoming</a></li> 
+                <li><a href="management.htm">Management</a></li> 
+                ${adm}
+                <li><a href="logout.htm">Logout</a></li>                         
+            </ul>
+            <div class="user_info">
+                Logged as: ${name}
+            </div>    
 
-        <ul>
-            <li><a href="addride.htm"><i>Add ride</i></a></li>               
-        </ul>        
-        
-        
-        <div class="content">
-            <table width="600px" border="1" bgcolor="64cc18">                
+            <div class="divide_menu">
+                &#32;
+            </div>
+
+            <ul class="submenu">
+                <li><a href="addride.htm"><i>Add ride</i></a></li>               
+            </ul>      
+
+            <a href="inbox.htm" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a> 
+
+            <h1 class="table_title">My rides:</h1>
+            <table>                
                 <tr>
                     <td>Date</td>
                     <td>Time</td>
@@ -50,7 +54,7 @@
                     </tr>
                 </c:forEach>                
             </table>
+
         </div>
-        
     </body>
 </html>

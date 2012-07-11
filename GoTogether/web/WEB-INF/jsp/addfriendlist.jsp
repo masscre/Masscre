@@ -9,13 +9,23 @@
       
   </head>
   <body>
-      <div class="panel_corner2"></div>
-          <div class="panel">
-                <div class="register"><a href="main.htm">Home</a></div>                
-          </div> 
-          <div class="panel2">
-                <div class="register"><a href="addfriend.htm">New search</a></div>
+      <div class="main"> 
+          <ul class="menu">
+              <li><a href="main.htm">Home</a></li>
+          </ul>    
+          
+          <div class="divide_menu">
+                &#32;
           </div>
+          
+          <ul class="submenu">
+                <li><a href="main.htm">Home</a></li>     
+                <li><a href="addfriend.htm">New search</a></li>
+          </ul> 
+          
+          <h1 class="table_title">Search results:</h1>
+      
+          
       <div class="register_content">          
           <div class="divide"></div>
           <table width="400px" border="1" bgcolor="1FE812">
@@ -29,6 +39,7 @@
           </table>                      
       </div>
       <div class="join_us"></div> 
+      </div>
   </body>
 </html>
 

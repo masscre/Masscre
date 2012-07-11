@@ -19,14 +19,19 @@ public class ManagementController  extends AbstractController{
     
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception { 
+        Login login;
         try {
             HttpSession session = hsr.getSession();
-            Login login = (Login)session.getAttribute("user");
+            login = (Login)session.getAttribute("user");
             if (!login.loggedIn()) return new ModelAndView("redirect:index.htm");
         } catch (Exception e) {
             return new ModelAndView("redirect:index.htm");
-        }                      
-        return new ModelAndView("management");
+        }     
+        
+        String firstName = login.getUser().getFirstname();
+        String lastName = login.getUser().getLastname();  
+        
+        return new ModelAndView("management", "name", firstName+" "+lastName);
     }
     
 }

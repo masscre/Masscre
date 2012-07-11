@@ -42,6 +42,9 @@ public class MyRidesController extends AbstractController{
             System.out.println("Nelze dostat seznam rides");            
         }
         
-        return new ModelAndView("myrides");
+        String firstName = login.getUser().getFirstname();
+        String lastName = login.getUser().getLastname();  
+        
+        return new ModelAndView("myrides", "name", firstName+" "+lastName);
     }    
 }

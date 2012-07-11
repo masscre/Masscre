@@ -40,7 +40,10 @@ public class GroupsController  extends AbstractController{
             System.out.println(e);
         }
         
-        return new ModelAndView("groups");
+        String firstName = login.getUser().getFirstname();
+        String lastName = login.getUser().getLastname(); 
+        
+        return new ModelAndView("groups", "name", firstName+" "+lastName);
     }
     
 }

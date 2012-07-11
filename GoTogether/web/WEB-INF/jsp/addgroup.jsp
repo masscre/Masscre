@@ -9,27 +9,29 @@
         <link href="favicon.png" rel="icon" type="image/png" />
     </head>
     <body>
-        <div class="panel_corner"></div>
-        <div class="panel">
-                <div class="register"><a href="groups.htm"><img src="img/home.png"/></a></div>
-            </div>
-        <div class="register_content">
-            <div class="addride_title"></div>
-            <div class="divide"></div>
+        <div class="main">         
+        <ul class="menu">
+              <li><a href="main.htm">Home</a></li>
+        </ul>
+        <h1 class="table_title">Add group:</h1>
             <form:form commandName="addgroup" method="POST" name="addgroup">
-                <p>
-                    <div class="register_label">Groupname: </div>
-                    <div class="register_input"><form:input type="text" path="groupName"/></div>
-                </p>                
-                <p>                
-                    <div class="register_submit"><input type="submit" value="Add"/></div>
-                </p>  
-                <p>
-                <font color="red">
-                    <br><form:errors path="groupName"/></br>                    
-                </font> 
+                <table>
+                    <tr>
+                        <td>Groupname: </td>
+                        <td><form:input type="text" path="groupName"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Add"/></td>
+                    </tr>
+                    <tr>
+                        <td></font></td>
+                        <td><font color="red"><form:errors path="groupName"/></td>
+                    </tr>    
+                </table> 
               </p>  
             </form:form>
-        </div>       
+        
+        </div>    
     </body>
 </html>

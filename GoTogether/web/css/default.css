@@ -130,8 +130,20 @@ a {
      border-radius: 2px;
      background: rgba(255,255,255,0.3);
  }
+ 
+ .submenu a.active {
+     background: #fff;
+     color: #0ae;
+     border-bottom-left-radius: 5px;
+     border-bottom-right-radius: 5px;
+ }
+ 
  .submenu a:hover {
      background: #fff;
+ }
+ 
+ .submenu li{
+     display: inline-block;
  }
  
  .btn_inbox {
