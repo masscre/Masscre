@@ -13,14 +13,16 @@
     </head>
     
     <body>            
-        <div class="panel_corner"></div>
-        <div class="panel">
-                <div class="register"><a href="main.htm"><img src="img/home.png"/></a></div>
-            </div>
-        <div class="register_content">            
-            <div class="dIvide"></div>
-            <h1>Do you really remove user ${username} ?</h1>
-            <div class="register_submit"><a href="removeuserok.htm?id=${deleteId}">Yes</div>
+        <div class="main">
+            <ul class="menu">
+                <li><a href="main.htm">Home</a></li>            
+            </ul> 
+            
+            <h1 class="table_title">Do you really remove user ${username} ?</h1>
+            <ul class="submenu">
+                <li><a href="removeuserok.htm?id=${deleteId}">Yes</a></li>  
+                <li><a href="administration.htm">No</a></li>
+            </ul>
         </div>    
         
     </body>

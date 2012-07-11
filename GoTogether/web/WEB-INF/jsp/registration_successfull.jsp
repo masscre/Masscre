@@ -9,16 +9,14 @@
         <title>GoTogether registration successfull</title>
     </head>
     <body>
-        <div class="message_window">
-            <div class="message_up">
-                <h1>Your account has been created.</h1>
-            </div>
-            <div class="message_redirect">
-                <a href="index.htm"><img src="img/ok.png"/></a>
-            </div>
-            <div class="message_down">
-                <h4>You will be redirected (in 5 seconds) to the index page, where you can login.</h4>
-            </div>
+        <div class="main">
+        <h1 class="table_title">Your account has been created.</h1>
+            <ul class="submenu">
+                <li><a href="index.htm">OK</a></li>
+            </ul>
+            <h1 class="table_title">
+                You will be redirected (in 5 seconds) to the index page, where you can login.
+            </h1>
         </div>
     </body>
 </html>

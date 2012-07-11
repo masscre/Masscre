@@ -13,26 +13,27 @@
     </head>
 
     <body>            
-        <div class="panel_corner"></div>
-        <div class="panel">
-            <div class="register"><a href="main.htm"><img src="img/home.png"/></a></div>
-        </div>
-        <div class="register_content">            
-            <div class="divide"></div>
-            <h1>Promote user ${username} to level</h1>
+        <div class="main">
+        <ul class="menu">
+            <li><a href="main.htm">Home</a></li>            
+        </ul>               
+            
+            <h1 class="table_title">Promote user ${username} to level</h1>
             <form:form commandName="promote" method="POST" name="promote">
-                <p>
-                    <div class="register_label">Level: </div>
-                    <div class="register_input"><form:input type="text" path="level"/></div>
-                </p>
-                <p>                
-                    <div class="register_submit"><input type="submit" value="Promote"/></div>
-                </p> 
-                <p>
-                    <font color="red">
-                        <br><form:errors path="level"/></br>                    
-                    </font> 
-                </p> 
+                <table>
+                    <tr>
+                        <td>Level: </td>
+                        <td><form:input type="text" path="level"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Promote"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><font color="red"><form:errors path="level"/></font></td>
+                    </tr>    
+                </table> 
             </form:form>
         </div>    
 

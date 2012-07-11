@@ -12,27 +12,26 @@
         
     </head>
     
-    <body>                   
-        <ul>
+    <body>
+        <div class="main">
+        <ul class="menu">
             <li><a href="main.htm">Home</a></li>  
             <li><a href="myrides.htm">My rides</a></li>
             <li><a href="upcoming.htm">Upcoming</a></li> 
             <li><a href="management.htm">Management</a></li> 
-            <li><a href="administration.htm"><font color="white">Administration</font></a></li> 
+            <li><a href="administration.htm" class="active">Administration</a></li> 
             <li><a href="logout.htm">Logout</a></li>
         </ul>
         <a href="inbox.htm" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a> 
-        <div class="dIvide_menu">
+        <div class="divide_menu">
             &#32;
         </div>    
-            <ul>
-                <li><a href="#"><i><font color="white">Users</font></i></a></li>  
+            <ul class="submenu">
+                <li><a href="#" class="active">Users</a></li>  
                 <li><a href="#"><i>Rides</i></a></li>
             </ul>
-               
-        
-        <div class="content">
-            <h1>Users: </h1>
+           
+            <h1 class="table_title">Users: </h1>
             <table width="600px" border="1" bgcolor="0DD939">                
                 <tr>
                     <td>Username</td>
