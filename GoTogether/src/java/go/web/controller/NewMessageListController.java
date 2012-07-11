@@ -52,7 +52,10 @@ public class NewMessageListController extends AbstractController{
             System.out.println("Nelze dostat seznam pratel");            
         }
         
-        return new ModelAndView("newmessagelist");
+        String firstName = login.getUser().getFirstname();
+        String lastName = login.getUser().getLastname(); 
+        
+        return new ModelAndView("newmessagelist", "name", firstName+" "+lastName);
     }
     
 }

@@ -33,8 +33,11 @@ public class AdministrationController extends AbstractController{
            Collections.sort(users, User.getUserComparator());
            session.setAttribute("users", users);
         
+           String firstName = login.getUser().getFirstname();
+        String lastName = login.getUser().getLastname(); 
         
-        return new ModelAndView("administration");
+        
+        return new ModelAndView("administration", "name", firstName+" "+lastName);
     }
 }
 

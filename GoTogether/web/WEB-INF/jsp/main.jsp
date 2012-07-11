@@ -20,7 +20,7 @@
             <li><a href="logout.htm">Logout</a></li>                         
         </ul>
         <div class="user_info">
-                Logged as: ${name}
+                ${name}
         </div>    
 
         <div class="divide_menu">
@@ -38,14 +38,14 @@
         ${requests}
         ${requestsTable}
 
-        <h1 class="table_title">Friend list:</h1>
+        <h1 class="table_title">Friends list:</h1>
         <table>
             <tr class="title">
                 <td>Firstname</td>
                 <td>Lastname</td>
                 <td>Group</td>
                 <td>Send mesage</td>
-                <td>Edit</td>
+                <td>Delete</td>
             </tr>
             ${friendsList}
         </table>

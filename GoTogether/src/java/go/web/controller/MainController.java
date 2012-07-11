@@ -79,7 +79,7 @@ public class MainController extends AbstractController{
                 User u = Database.database.getUser((String)it.next());                
                 friendList += "<tr><td>"+u.getFirstname()+"</td><td>"+u.getLastname()+
                         "<td>"+"-"+"</td>"+"<td>"+"<a href=\"newmessage.htm?id="+u.getId().toString()+"\"> message </a>"
-                        +"</td>"+"<td><a href=\"editfriend.htm?id="+u.getId().toString()+"\">edit</a></td>"+"</tr>";
+                        +"</td>"+"<td><a href=\"deletefriend.htm?id="+u.getId().toString()+"\">Delete</a></td>"+"</tr>";
             }
             session.setAttribute("friendsList", friendList);
         } catch(Exception e) {

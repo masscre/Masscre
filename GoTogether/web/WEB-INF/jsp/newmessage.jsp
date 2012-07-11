@@ -18,6 +18,9 @@
             ${adm}
             <li><a href="logout.htm">Logout</a></li>
         </ul>
+            <div class="user_info">
+                ${name}
+        </div> 
         <a href="inbox.htm" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a> 
         <div class="divide_menu">
             &#32;

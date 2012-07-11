@@ -20,7 +20,7 @@
             </ul>
 
             <div class="user_info">
-                Logged as: ${name}
+                ${name}
             </div>     
 
             <div class="divide_menu">
@@ -38,7 +38,7 @@
                     <td>From</td>
                     <td>To</td>
                     <td>Created by</td>
-                    <td>Open</td>
+                    <td>Join</td>
                 </tr>
                 <c:forEach items="${rides}" var="current">
                     <tr>
@@ -47,7 +47,7 @@
                         <td><c:out value="${current.getFrom()}" /></td>    
                         <td><c:out value="${current.getTo()}" /></td> 
                         <td><c:out value="${current.getOwnerName()}" /></td>
-                        <td><a href="rideedit.htm?id=${current.getId()}">OPEN</a></td>      
+                        <td><a href="joinride.htm?id=${current.getId()}">JOIN</a></td>      
                     </tr>
                 </c:forEach>                
             </table>

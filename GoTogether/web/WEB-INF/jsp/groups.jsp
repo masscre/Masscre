@@ -20,7 +20,7 @@
         </ul>
             
         <div class="user_info">
-                Logged as: ${name}
+                ${name}
         </div>     
             
         <a href="inbox.htm" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a>  

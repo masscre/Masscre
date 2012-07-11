@@ -13,13 +13,13 @@
         <ul class="menu">
             <li><a href="main.htm">Home</a></li>  
             <li><a href="myrides.htm">My rides</a></li>
-            <li><a href="#">Upcoming</a></li> 
+            <li><a href="upcoming.htm">Upcoming</a></li> 
             <li><a href="management.htm">Management</a></li> 
             ${adm}
             <li><a href="logout.htm">Logout</a></li>
         </ul>
             <div class="user_info">
-                Logged as: ${name}
+                ${name}
             </div>  
         <a href="inbox.htm" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a> 
         

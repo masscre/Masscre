@@ -38,10 +38,14 @@ public class ReadMessageController extends AbstractController{
             session.setAttribute("subject", m.getSubject());
             session.setAttribute("message", m.getMessage());   
             session.setAttribute("from", m.getFrom());
+            session.setAttribute("messageId", m.getId());
         } catch (Exception e) {
             System.out.println(e);            
         }
         
-        return new ModelAndView("readmessage");
+        String firstName = login.getUser().getFirstname();
+        String lastName = login.getUser().getLastname();
+        
+        return new ModelAndView("readmessage", "name", firstName+" "+lastName);
     }    
 }

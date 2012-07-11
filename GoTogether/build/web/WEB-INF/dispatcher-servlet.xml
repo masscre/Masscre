@@ -47,6 +47,14 @@
                 <prop key="newmessagelist.htm">newmessagelistController</prop>
                 <prop key="newmessage.htm">newmessageController</prop>
                 <prop key="readmessage.htm">readmessageController</prop>
+                <prop key="ridedelete.htm">ridedeleteController</prop>
+                <prop key="ridedeleteok.htm">ridedeleteokController</prop>
+                <prop key="joinride.htm">joinrideController</prop>
+                <prop key="joinrideok.htm">joinrideokController</prop>
+                <prop key="deletemessage.htm">deletemessageController</prop>
+                <prop key="deletemessageok.htm">deletemessageokController</prop>
+                <prop key="deletefriend.htm">deletefriendController</prop>
+                <prop key="deletefriendok.htm">deletefriendokController</prop>
             </props>
         </property>
     </bean>
@@ -111,7 +119,30 @@
           
     <bean name="readmessageController"
           class="go.web.controller.ReadMessageController" />
+          
+    <bean name="ridedeleteController"
+          class="go.web.controller.RideDeleteController" />
    
+    <bean name="ridedeleteokController"
+          class="go.web.controller.RideDeleteOkController" />
+          
+    <bean name="joinrideController"
+          class="go.web.controller.JoinRideController" />
+          
+    <bean name="joinrideokController"
+          class="go.web.controller.JoinRideOkController" />
+          
+    <bean name="deletemessageController"
+          class="go.web.controller.DeleteMessageController" />
+          
+    <bean name="deletemessageokController"
+          class="go.web.controller.DeleteMessageOkController" />
+          
+    <bean name="deletefriendController"
+          class="go.web.controller.DeleteFriendController" />
+          
+    <bean name="deletefriendokController"
+          class="go.web.controller.DeleteFriendOkController" />
     
     <bean id="loginValidator" class="go.web.validator.LoginValidator"/>
     <bean id="registrationValidator" class="go.web.validator.RegistrationValidator"/>   

@@ -22,7 +22,7 @@
                 <li><a href="logout.htm">Logout</a></li>                         
             </ul>
             <div class="user_info">
-                Logged as: ${name}
+                ${name}
             </div>    
 
             <div class="divide_menu">
@@ -42,7 +42,7 @@
                     <td>Time</td>
                     <td>From</td>
                     <td>To</td>
-                    <td>Edit</td>
+                    <td>Delete</td>
                 </tr>
                 <c:forEach items="${rides}" var="current">
                     <tr>
@@ -50,7 +50,7 @@
                         <td><c:out value="${current.getHourVisual()}" />:<c:out value="${current.getMinuteVisual()}" /></td>
                         <td><c:out value="${current.getFrom()}" /></td>    
                         <td><c:out value="${current.getTo()}" /></td> 
-                        <td><a href="rideedit.htm?id=${current.getId()}">EDIT</a></td>      
+                        <td><a href="ridedelete.htm?id=${current.getId()}">DELETE</a></td>      
                     </tr>
                 </c:forEach>                
             </table>
