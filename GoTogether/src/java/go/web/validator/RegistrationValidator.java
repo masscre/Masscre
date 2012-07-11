@@ -65,6 +65,7 @@ public class RegistrationValidator implements Validator {
         }
         
         if (ok == true) {
+            System.out.println(reg.getPassword());
             Database.database.register(reg.getFirstname(), reg.getLastname(), reg.getUsername(), reg.getEmail(), reg.getPassword());
         }
     }

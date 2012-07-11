@@ -33,7 +33,7 @@ public class LoginValidator implements Validator {
         else if (login.loggedIn() == false) {
             errors.rejectValue("password", "wrong.password", "Wrong password");            
         } 
-        
+        System.out.println(login.getPassword());
     }
 }
 
