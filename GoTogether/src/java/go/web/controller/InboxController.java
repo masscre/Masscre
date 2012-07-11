@@ -39,8 +39,10 @@ public class InboxController extends AbstractController{
             System.out.println(e);
         }
         
+        String firstName = login.getUser().getFirstname();
+        String lastName = login.getUser().getLastname(); 
         
-        return new ModelAndView("inbox");
+        return new ModelAndView("inbox", "name", firstName+" "+lastName);
     }
     
 }

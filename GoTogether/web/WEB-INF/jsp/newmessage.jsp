@@ -9,8 +9,8 @@
         <title>GoTogether - MESSENGER</title>
     </head>
     <body> 
-                  
-        <ul>
+        <div class="main">          
+        <ul class="menu"
             <li><a href="main.htm">Home</a></li>  
             <li><a href="myrides.htm">My rides</a></li>
             <li><a href="#">Upcoming</a></li> 
@@ -22,13 +22,11 @@
         <div class="divide_menu">
             &#32;
         </div>
-        <ul>
-            <li><a href="newmessage.htm"><font color="white">New message</font></a></li> 
+        <ul class="submenu">
+            <li><a href="newmessage.htm" class="active">New message</a></li> 
             <li><a href="inbox.htm">Inbox</a></li> 
         </ul>
-        
-        <div class="register_content">          
-          <div class="divide"></div>
+        <h1 class="table_title">New message:</h1>
           <form:form commandName="sendmessage" method="POST" name="sendmessage">
               <p>
                 <div class="register_label">Subject: </div>

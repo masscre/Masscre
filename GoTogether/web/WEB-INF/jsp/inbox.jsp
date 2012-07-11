@@ -9,8 +9,8 @@
         <title>GoTogether - MESSENGER</title>
     </head>
     <body> 
-                  
-        <ul>
+        <div class="main">          
+        <ul class="menu">
             <li><a href="main.htm">Home</a></li>  
             <li><a href="myrides.htm">My rides</a></li>
             <li><a href="#">Upcoming</a></li> 
@@ -18,16 +18,18 @@
             ${adm}
             <li><a href="logout.htm">Logout</a></li>
         </ul>
+            <div class="user_info">
+                Logged as: ${name}
+            </div>  
         <a href="inbox.htm" style="position: absolute; top: 5px; right: 10px;"><img src="img/envelope.png"/></a> 
-        <div class="divide_menu">
-            &#32;
-        </div>
-        <ul>
+        
+        <ul class="submenu">
             <li><a href="newmessagelist.htm">New message</a></li> 
-            <li><a href="inbox.htm"><font color="white">Inbox</font></a></li> 
+            <li><a href="inbox.htm" class="active">Inbox</a></li> 
         </ul>
         
-        <div class="content">
+        <h1 class="table_title">Inbox:</h1>
+        
             <table width="600px" border="1" bgcolor="0DD939">                
                 <tr>
                     <td>From</td>
@@ -45,8 +47,7 @@
                         <td><a href="deletemessage.htm?id=${current.getId()}">DELETE</a></td>
                     </tr>
                 </c:forEach>                
-            </table>
+            </table>        
         </div>
-        
     </body>
 </html>
