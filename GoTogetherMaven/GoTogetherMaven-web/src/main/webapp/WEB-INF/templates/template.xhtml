@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./css/default.css" rel="stylesheet" type="text/css" />
+        <title>GoTogether</title>
+    </h:head>
+
+    <h:body>
+
+        <div class="main">
+            <ui:insert name="menu">
+                <ul class="menu">
+                    <li><a href="index.xhtml" class="active">Home</a></li>  
+                    <li><a href="myrides.xhtml">My rides</a></li>
+                    <li><a href="upcoming.xhtml">Upcoming</a></li> 
+                    <li><a href="management.xhtml">Management</a></li>
+                    <c:if test="#{loginBean.isLoggedAdministrator()}">
+                        <li><a href="administration.xhtml">Administration</a></li>
+                    </c:if>    
+                    <li><a href="logout.xhtml">Logout</a></li>                         
+                </ul>
+            </ui:insert>
+            <ui:insert name="content">
+                
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

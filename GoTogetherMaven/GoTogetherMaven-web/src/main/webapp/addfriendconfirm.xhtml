@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>GoTogether</title>
+        <link href="/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="/img/favicon.png" rel="icon" type="image/png" />
+        <meta http-equiv="refresh" content="5;url=index.xhtml" />
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/templates/confirm.xhtml">            
+            <ui:define name="text">
+                You send friend request to #{addFriendBean.addFriend()}.
+            </ui:define>
+            <ui:define name="confirm">
+                <li><a href="index.xhtml">OK</a></li>
+            </ui:define>
+        </ui:composition>            
+    </h:body>
+</html>

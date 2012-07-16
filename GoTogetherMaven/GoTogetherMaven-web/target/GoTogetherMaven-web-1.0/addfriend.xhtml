@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./css/default.css" rel="stylesheet" type="text/css" />
+        <title>GoTogether</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/templates/template.xhtml">
+            <ui:define name="content">                              
+                <h1 class="table_title">Find friend:</h1>
+                <h:form id="addfriend">
+                    <table>
+                        <tr>
+                            <td><div class="register_label">Firstname: </div></td>
+                            <td><div class="register_input"><input type="text" name="firstname"/></div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="register_label">Lastname: </div></td>
+                            <td><div class="register_input"><input type="text" name="lastname"/></div></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><h:commandButton value="Find" action="#{addFriendBean.find()}" /></td>                       
+                        </tr>
+                    </table>                                    
+                </h:form>
+                
+                <c:if test="#{!addFriendBean.isSearchListEmpty()}">
+                    <h1 class="table_title">Search results:</h1>
+                    <table>
+                        <tr>
+                            <td>Firstname</td>
+                            <td>Lastname</td>
+                            <td>Email</td>
+                            <td>Add friend</td>
+                        </tr>
+                        <ui:repeat value="#{addFriendBean.searchList}" var="f">                    
+                                <tr>
+                                    <td>#{f.firstName}</td>
+                                    <td>#{f.lastName}</td>
+                                    <td>#{f.email}</td>
+                                    <td><a href="addfriendconfirm.xhtml?id=#{f.userName}"><img src="img/plus_button.jpg"/></a></td>
+                                </tr>                        
+                        </ui:repeat> 
+                    </table>  
+                </c:if>
+                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
