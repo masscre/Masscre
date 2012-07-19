@@ -7,6 +7,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
+import go.model.Ride;
 import go.model.User;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 import go.setting.DatabaseSetting;
 import java.util.ArrayList;
 import java.util.Iterator;
+import org.bson.types.ObjectId;
 
 public class DatabaseConnector {
     
@@ -73,6 +75,10 @@ public class DatabaseConnector {
             user.setFirstName(userDb.get("firstname").toString());
             user.setLastName(userDb.get("lastname").toString());
             user.setEmail(userDb.get("email").toString());
+            try {
+                user.setRides((ArrayList<String>)userDb.get("rides"));
+            } catch (Exception e) {}
+            if (user.getRides() == null) user.setRides(new ArrayList());
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -205,6 +211,98 @@ public class DatabaseConnector {
     
     public int getNumberOfAccounts() {
         return (int) users.getCount();
+    }
+    
+    public synchronized void removeFriend(String userName, String friendName) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("username", userName);
+        DBObject user = users.findOne(query);
+        ArrayList<String> friendsList = new ArrayList();
+        try {
+            friendsList = (ArrayList<String>) user.get("friendsList");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        if (friendsList == null) friendsList = new ArrayList();
+        friendsList.remove(friendName);
+        user.put("friendsList", friendsList);
+        users.save(user);
+    }
+    
+    public synchronized void addRide(Ride ride, String userName) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("username", userName);
+        DBObject user = users.findOne(query);
+        User us = getUserByUserName(userName);
+        BasicDBObject rideDb = new BasicDBObject();
+        rideDb.put("from", ride.getFrom());
+        rideDb.put("to", ride.getTo());
+        rideDb.put("date", ride.getDate());
+        rideDb.put("time", ride.getTime());
+        rideDb.put("numberOfSeats", ride.getNumberOfSeats());
+        rideDb.put("taxtype", ride.getTaxType()); 
+        rideDb.put("ownerName", us.getUserFullName());
+        rideDb.put("owner", userName);
+        ArrayList<String> riders = new ArrayList();
+        rideDb.put("coriders", riders);
+        rides.save(rideDb);
+        DBObject rideSaved = rides.findOne(rideDb);
+        ArrayList<String> rides = new ArrayList();
+        try {
+            rides = (ArrayList<String>) user.get("rides");
+        } catch (Exception e) {}
+        if (rides == null) rides = new ArrayList();
+        String rideId = rideSaved.get("_id").toString();
+        rides.add(rideId);
+        user.put("rides", rides);
+        users.save(user);
+    }
+    
+    public synchronized ArrayList<Ride> getRidesList(String userName) {        
+        BasicDBObject query = new BasicDBObject();
+        query.put("username", userName);
+        DBObject user = users.findOne(query);
+        ArrayList<String> ridesIds = new ArrayList();
+        try {
+            ridesIds = (ArrayList<String>) user.get("rides");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        if (ridesIds == null) ridesIds = new ArrayList();
+        Iterator it = ridesIds.iterator();
+        ArrayList<Ride> ridesList = new ArrayList();
+        while(it.hasNext()) {
+            try {
+                BasicDBObject query2 = new BasicDBObject();
+                query2.put("_id", new ObjectId((String)it.next()));
+                DBObject rideDb = rides.findOne(query2);
+                Ride ride = new Ride();
+                ride.setFrom(rideDb.get("from").toString());
+                ride.setTo(rideDb.get("to").toString());
+                ride.setDate(rideDb.get("date").toString());
+                ride.setTime(rideDb.get("time").toString());
+                ride.setNumberOfSeats(Integer.parseInt(rideDb.get("numberOfSeats").toString()));
+                ride.setTaxType(rideDb.get("taxtype").toString());
+                ride.setId(rideDb.get("_id").toString());
+                ride.setOwner(rideDb.get("ownerName").toString());
+                ArrayList<String> coridersIds = new ArrayList();
+                try {
+                    coridersIds = (ArrayList<String>) rideDb.get("coriders");
+                } catch (Exception e) {}
+                if (coridersIds == null) coridersIds = new ArrayList();
+                Iterator it2 = coridersIds.iterator();
+                ArrayList<User> usersInRide = new ArrayList();
+                while(it2.hasNext()) {
+                    User u = getUserByUserName((String)it.next());
+                    usersInRide.add(u);
+                }
+                ride.setCoriders(usersInRide);
+                ridesList.add(ride);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }       
+        return ridesList;
     }
     
 }

@@ -2,6 +2,7 @@ package go.back;
 
 import com.mongodb.DBCollection;
 import go.logic.DatabaseConnector;
+import go.model.Ride;
 import go.model.User;
 import go.utils.StringUtils;
 import go.utils.UserUtils;
@@ -78,6 +79,42 @@ public class DatabaseBean implements Serializable {
         dc.removeFriendRequest(thisUserName, userName);
         dc.addFriendToUser(thisUserName, userName);
         dc.addFriendToUser(userName, thisUserName);
+    }
+    
+    public void removeFriend(String userName) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+        dc.removeFriend(thisUserName, userName);
+        dc.removeFriend(userName, thisUserName);
+    }
+    
+    public void addRide(Ride ride) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+        dc.addRide(ride, thisUserName);
+    }
+    
+    public ArrayList<Ride> getRidesList() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+        return dc.getRidesList(thisUserName);
+    }
+    
+    public ArrayList<Ride> getUpcomingList() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+        ArrayList<User> friends = getFriendsList();
+        Iterator it = friends.iterator();
+        ArrayList<Ride> friendsRides = new ArrayList();
+        while(it.hasNext()) {
+            User u = (User) it.next();
+            try {
+                ArrayList<Ride> ridesList = dc.getRidesList(u.getUserName());
+                System.out.println(ridesList.size());
+                friendsRides.addAll(ridesList);
+            } catch (Exception e) {}
+        }        
+        return friendsRides;
     }
     
     

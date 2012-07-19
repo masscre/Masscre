@@ -57,7 +57,7 @@
                                 <tr>
                                     <td>#{f.firstName}</td>
                                     <td>#{f.lastName}</td>
-                                    <td><h:commandButton value="Unfriend" action="#{friendsListBean.unfriend(f.userName)}"/></td>
+                                    <td><h:commandButton value="Unfriend" action="#{friendsListBean.removeFriend(f.userName)}"/></td>
                                     <td><a href="newmessage?id=#{f.userName}"><h:commandButton value="Send message"/></a></td>
                                 </tr>   
                             </h:form>    

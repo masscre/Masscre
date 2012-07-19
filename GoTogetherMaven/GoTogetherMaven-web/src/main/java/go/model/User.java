@@ -1,6 +1,7 @@
 package go.model;
 
 import go.utils.StringUtils;
+import java.util.ArrayList;
 
 public class User {
     
@@ -8,6 +9,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private ArrayList<String> rides;
     
     public User() {}
     
@@ -36,7 +38,13 @@ public class User {
 
     public String getEmail() {
         return email;
-    }   
+    }
+
+    public ArrayList<String> getRides() {
+        return rides;
+    }
+    
+    
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -52,6 +60,10 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setRides(ArrayList<String> rides) {
+        this.rides = rides;
     }
     
     

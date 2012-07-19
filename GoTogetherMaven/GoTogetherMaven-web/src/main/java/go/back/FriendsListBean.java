@@ -1,6 +1,7 @@
 package go.back;
 
 import go.model.User;
+import java.io.IOException;
 import java.security.Principal;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -26,6 +27,8 @@ public class FriendsListBean implements Serializable {
     
     public FriendsListBean() {        
     }
+    
+    private String removeFriend = "";
 
     private ArrayList<User> friendsList = new ArrayList();
     private ArrayList<User> friendsRequestsList = new ArrayList();
@@ -58,6 +61,16 @@ public class FriendsListBean implements Serializable {
     
     public void confirmFriend(String userName) {
         databaseBean.confirmFriend(userName);
+    }
+    
+    public void removeFriend(String userName) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("rmfriendok.xhtml?id="+userName);
+        removeFriend = userName;
+    }
+    
+    public void removeFriendConfirm() throws IOException {
+        databaseBean.removeFriend(removeFriend);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
 
 }

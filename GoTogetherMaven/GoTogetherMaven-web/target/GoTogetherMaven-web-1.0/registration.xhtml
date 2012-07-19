@@ -10,9 +10,14 @@
     </h:head>
     <h:body>
         <ui:composition template="./WEB-INF/templates/template.xhtml">
-            <ui:define name="content">
+            <ui:define name="menu">
+                <a class="btn_register" href="index.xhtml">BACK</a> 
+                <ul class="menu">                                           
+                </ul>
+            </ui:define>    
+            <ui:define name="content">                
                 <h1 class="title">Registration</h1>                
-                <h:form id="myForm" name="register">    
+                <h:form id="myForm">    
                     <table>
                         <tr>
                             <td><h:outputText value="Username:" /></td>
