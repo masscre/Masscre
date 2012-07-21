@@ -28,11 +28,18 @@
                         <c:when test="#{utilBean.isRides() || utilBean.isAddRide()}">
                             <li><a href="myrides.xhtml" class="active">My rides</a></li>
                         </c:when>
-                        <c:when test="#{!utilBean.isRides()}">
+                        <c:when test="#{!utilBean.isRides() || !utilBean.isAddRide()}">
                             <li><a href="myrides.xhtml">My rides</a></li>
                         </c:when>
                     </c:choose> 
-                    <li><a href="upcoming.xhtml">Upcoming</a></li> 
+                    <c:choose>
+                        <c:when test="#{utilBean.isUpcoming() || utilBean.isRideDetail()}">
+                            <li><a href="upcoming.xhtml" class="active">Upcoming</a></li> 
+                        </c:when>
+                        <c:when test="#{!utilBean.isUpcoming() || !utilBean.isRideDetail()}">
+                            <li><a href="upcoming.xhtml">Upcoming</a></li> 
+                        </c:when>
+                    </c:choose>
                     <li><a href="management.xhtml">Management</a></li>
                     <c:if test="#{loginBean.isLoggedAdministrator()}">
                         <li><a href="administration.xhtml">Administration</a></li>

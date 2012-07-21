@@ -39,6 +39,10 @@ public class DatabaseConnector {
         }
     }
     
+    public Mongo getMongo() {
+        return this.mongo;
+    }
+    
     public synchronized ArrayList<User> getUserFriendsList(String userName) {
         BasicDBObject query = new BasicDBObject();
         query.put("username", userName);
@@ -293,7 +297,7 @@ public class DatabaseConnector {
                 Iterator it2 = coridersIds.iterator();
                 ArrayList<User> usersInRide = new ArrayList();
                 while(it2.hasNext()) {
-                    User u = getUserByUserName((String)it.next());
+                    User u = getUserByUserName((String)it2.next());
                     usersInRide.add(u);
                 }
                 ride.setCoriders(usersInRide);
@@ -303,6 +307,38 @@ public class DatabaseConnector {
             }
         }       
         return ridesList;
+    }
+    
+    public Ride getRide(String id) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        DBObject rideDb = rides.findOne(query);
+        Ride ride = new Ride();
+        try {
+            ride.setFrom(rideDb.get("from").toString());
+                ride.setTo(rideDb.get("to").toString());
+                ride.setDate(rideDb.get("date").toString());
+                ride.setTime(rideDb.get("time").toString());
+                ride.setNumberOfSeats(Integer.parseInt(rideDb.get("numberOfSeats").toString()));
+                ride.setTaxType(rideDb.get("taxtype").toString());
+                ride.setId(rideDb.get("_id").toString());
+                ride.setOwner(rideDb.get("ownerName").toString());
+                ArrayList<String> coridersIds = new ArrayList();
+                try {
+                    coridersIds = (ArrayList<String>) rideDb.get("coriders");
+                } catch (Exception e) {}
+                if (coridersIds == null) coridersIds = new ArrayList();
+                Iterator it2 = coridersIds.iterator();
+                ArrayList<User> usersInRide = new ArrayList();
+                while(it2.hasNext()) {
+                    User u = getUserByUserName((String)it2.next());
+                    usersInRide.add(u);
+                }
+                ride.setCoriders(usersInRide);
+        }   catch (Exception e) {
+            System.out.println(e);
+        }        
+        return ride;
     }
     
 }

@@ -2,6 +2,8 @@ package go.back;
 
 import com.mongodb.DBCollection;
 import go.logic.DatabaseConnector;
+import go.logic.MorphiaConnector;
+import go.model.Message;
 import go.model.Ride;
 import go.model.User;
 import go.utils.StringUtils;
@@ -26,9 +28,21 @@ public class DatabaseBean implements Serializable {
     }
     
     private DatabaseConnector dc;
+    private MorphiaConnector mc;
     
     public DatabaseBean() {
         this.dc = new DatabaseConnector();
+        this.mc = new MorphiaConnector();
+    }
+    
+    public void addMessageToRide(Message message, String rideId) {
+        message.setRideId(rideId);
+        System.out.println(message.getAuthor()+" "+message.getMessage()+" "+message.getRideId());
+        mc.saveMessage(message);
+    }
+    
+    public ArrayList<Message> getRideMessages(String rideId) {
+        return mc.getRideMessages(rideId);
     }
     
     public User getUser(String userName) {
@@ -115,6 +129,10 @@ public class DatabaseBean implements Serializable {
             } catch (Exception e) {}
         }        
         return friendsRides;
+    }
+    
+    public Ride getRide(String id) {
+        return dc.getRide(id);
     }
     
     

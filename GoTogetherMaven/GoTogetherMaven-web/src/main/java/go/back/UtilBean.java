@@ -48,6 +48,10 @@ public class UtilBean implements Serializable {
         return thisPage().equals("/addride.xhtml");
     }
     
+    public boolean isRideDetail() {
+        return thisPage().equals("/ridedetail.xhtml");
+    }
+    
     public boolean isUpcoming() {        
         return thisPage().equals("/upcoming.xhtml");
     }
