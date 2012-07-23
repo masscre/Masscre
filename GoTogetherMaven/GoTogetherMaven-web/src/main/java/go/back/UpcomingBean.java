@@ -29,7 +29,9 @@ public class UpcomingBean implements Serializable {
     private ArrayList<Ride> ridesList = new ArrayList();
 
     public ArrayList<Ride> getRidesList() {
-        ridesList = databaseBean.getUpcomingList();        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+        ridesList = databaseBean.getUpcomingList(thisUserName);        
         return ridesList;
     }
     

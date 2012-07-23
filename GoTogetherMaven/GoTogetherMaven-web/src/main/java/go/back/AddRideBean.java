@@ -51,8 +51,10 @@ public class AddRideBean implements Serializable {
         String date = dateFormat.format(dateDate);
         Date timeDate = new Date();
         String time = timeFormat.format(timeDate);        
-        Ride ride = new Ride(from, to, date, time, Integer.parseInt(numberOfSeats), typeOfTax);        
-        databaseBean.addRide(ride);
+        Ride ride = new Ride(from, to, date, time, Integer.parseInt(numberOfSeats), typeOfTax);
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+        databaseBean.addRide(ride, thisUserName);
         FacesContext.getCurrentInstance().getExternalContext().redirect("myrides.xhtml");
     }
 

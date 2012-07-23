@@ -22,6 +22,8 @@ import javax.faces.context.FacesContext;
 public class SessionBean implements Serializable {
     
     private String rideId;
+    private String mailTo;
+    private String mailId;
     
     public SessionBean() { 
         
@@ -41,8 +43,29 @@ public class SessionBean implements Serializable {
     public void setRideId(String rideId) {         
         this.rideId = rideId;
     }
+
+    public String getMailTo() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
+        String tempMailTo = null;
+        try {
+            tempMailTo = paramMap.get("id");
+        } catch (Exception e) {}
+        System.out.println(tempMailTo);
+        if (tempMailTo != null) mailTo = tempMailTo;
+        return mailTo;
+    }   
     
-    
+    public String getMailId() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
+        String tempId = null;
+        try {
+            tempId = paramMap.get("id");
+        } catch (Exception e) {}
+        if (tempId != null) mailId = tempId; 
+        return mailId;
+    }
     
 }
 

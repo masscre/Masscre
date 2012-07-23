@@ -19,7 +19,8 @@ public class Mail {
     private Boolean readed;
     
     public Mail() {
-        
+        sendDate = getDateTime();
+        readed = false;
     }
     
     public static String getDateTime() {

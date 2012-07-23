@@ -303,8 +303,9 @@ public class DatabaseConnector {
                 ride.setCoriders(usersInRide);
                 ridesList.add(ride);
             } catch (Exception e) {
-                System.out.println(e);
+                ridesList = new ArrayList();
             }
+            if (ridesList == null) ridesList = new ArrayList();
         }       
         return ridesList;
     }
@@ -346,6 +347,7 @@ public class DatabaseConnector {
         }   catch (Exception e) {
             System.out.println(e);
         }        
+        if (ride == null) return new Ride();
         return ride;
     }
     
@@ -403,6 +405,12 @@ public class DatabaseConnector {
         coriders.add(userName);
         rideDb.put("coriders", coriders);
         rides.save(rideDb);
+    }
+    
+    public void deleteRide(String id) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        rides.findAndRemove(query);
     }
     
 }

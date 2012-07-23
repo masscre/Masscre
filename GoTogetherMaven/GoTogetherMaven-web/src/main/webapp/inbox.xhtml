@@ -14,8 +14,8 @@
             <ui:define name="content">                
                 
                 <ul class="submenu">
-                    <li><a href="#" class="active">Inbox</a></li>   
-                    <li><a href="newmessage.xhtml">New message</a></li>
+                    <li><a href="#" class="active">Inbox</a></li> 
+                    <li><a href="index.xhtml">New message</a></li> 
                 </ul>
                 
                 <h1 class="table_title">Inbox:</h1>
@@ -24,24 +24,32 @@
                     <c:when test="#{!mailBean.mails.isEmpty()}">
                         <h:form>
                             <table>
-                                <tr>
+                                <tr class="title">
                                     <td>From</td>
                                     <td>Date and time</td>
                                     <td>Subject</td>
-                                    <td></td>
+                                    <td>Delete</td>
+                                    <td>Open</td>
                                 </tr>
                                 <ui:repeat value="#{mailBean.mails}" var="m">
-                                    <tr>
-                                        <td>#{m.from}</td>
-                                        <td>#{m.sendDate}</td>
-                                        <td>#{m.subject}</td>
-                                        <td><h:commandButton value="Open" /></td>
-                                    </tr>
-                                    <tr class="hidden" name="#{m.id}">
-                                        <td></td>
-                                        <td>#{m.message}</td>
-                                        <td></td>
-                                    </tr>
+                                    <c:if test="#{m.readed}">
+                                        <tr>
+                                            <td><b>#{mailBean.getFullName(m.from)}</b></td>
+                                            <td><b>#{m.sendDate}</b></td>
+                                            <td><b>#{m.subject}</b></td>
+                                            <td><h:commandButton value="Delete" action="#{mailBean.deleteMail(m.getId())}" /></td>
+                                            <td><a href="readmail.xhtml?id=#{m.getId()}"><h:commandButton value="Open" /></a></td>                                            
+                                        </tr>
+                                    </c:if> 
+                                    <c:if test="#{!m.readed}">
+                                        <tr>
+                                            <td>#{mailBean.getFullName(m.from)}</td>
+                                            <td>#{m.sendDate}</td>
+                                            <td>#{m.subject}</td>
+                                            <td><h:commandButton value="Delete" action="#{mailBean.deleteMail(m.getId())}" /></td>
+                                            <td><a href="readmail.xhtml?id=#{m.getId()}"><h:commandButton value="Open" /></a></td>
+                                        </tr>
+                                    </c:if>    
                                 </ui:repeat>
                             </table> 
                         </h:form>    

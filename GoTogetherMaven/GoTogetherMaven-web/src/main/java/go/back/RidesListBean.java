@@ -11,11 +11,12 @@ import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class RidesListBean implements Serializable {
     
     @ManagedProperty(value="#{databaseBean}")
@@ -32,7 +33,9 @@ public class RidesListBean implements Serializable {
     private ArrayList<Ride> ridesList = new ArrayList();
 
     public ArrayList<Ride> getRidesList() {
-        ridesList = databaseBean.getRidesList();        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+        ridesList = databaseBean.getRidesList(thisUserName);        
         return ridesList;
     }
     

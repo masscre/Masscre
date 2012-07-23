@@ -11,10 +11,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class FriendsListBean implements Serializable {
     
     @ManagedProperty(value="#{databaseBean}")
@@ -44,8 +45,10 @@ public class FriendsListBean implements Serializable {
         else return false;
     }
     
-    public ArrayList<User> getFriendsRequestsList() {        
-        friendsRequestsList = databaseBean.getFriendsRequests();
+    public ArrayList<User> getFriendsRequestsList() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String userName = facesContext.getExternalContext().getRemoteUser();
+        friendsRequestsList = databaseBean.getFriendsRequests(userName);
         return friendsRequestsList;
     }
     
@@ -55,12 +58,16 @@ public class FriendsListBean implements Serializable {
         return friendsRequestsList.isEmpty();
     }	
     
-    public void declineFriend(String userName) {        
-        databaseBean.declineFriend(userName);
+    public void declineFriend(String userName) {  
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+        databaseBean.declineFriend(userName, thisUserName);
     }
     
     public void confirmFriend(String userName) {
-        databaseBean.confirmFriend(userName);
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+        databaseBean.confirmFriend(userName, thisUserName);
     }
     
     public void removeFriend(String userName) throws IOException {
@@ -69,7 +76,9 @@ public class FriendsListBean implements Serializable {
     }
     
     public void removeFriendConfirm() throws IOException {
-        databaseBean.removeFriend(removeFriend);
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+        databaseBean.removeFriend(removeFriend, thisUserName);
         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
 

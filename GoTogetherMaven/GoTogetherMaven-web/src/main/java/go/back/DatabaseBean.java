@@ -3,6 +3,7 @@ package go.back;
 import com.mongodb.DBCollection;
 import go.logic.DatabaseConnector;
 import go.logic.MorphiaConnector;
+import go.model.Mail;
 import go.model.Message;
 import go.model.Ride;
 import go.model.User;
@@ -35,8 +36,28 @@ public class DatabaseBean implements Serializable {
         this.mc = new MorphiaConnector();
     }
     
+    public void deleteMail(String id) {
+        mc.deleteMail(id);
+    }
+    
     public void requestSeat(String userName, String rideId) {
         this.dc.addRequestToRide(userName, rideId);
+    }
+    
+    public ArrayList<Mail> getMails(String userName) {
+        return mc.getMails(userName);
+    }
+    
+    public void readMail(String id) {
+        mc.readMail(id);
+    }
+    
+    public Mail getMail(String id) {
+        return mc.getMail(id);
+    }
+    
+    public void sendMail(Mail mail) {
+        mc.sendMail(mail);
     }
     
     
@@ -84,48 +105,34 @@ public class DatabaseBean implements Serializable {
         this.dc.addFriendRequest(userName, friendName);
     }
     
-    public ArrayList<User> getFriendsRequests() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String userName = facesContext.getExternalContext().getRemoteUser();
+    public ArrayList<User> getFriendsRequests(String userName) {        
         return UserUtils.formatUsers(dc.getFriendsRequests(userName));
     }
     
-    public void declineFriend(String userName) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+    public void declineFriend(String userName, String thisUserName) {        
         dc.removeFriendRequest(thisUserName, userName);
     }
     
-    public void confirmFriend(String userName) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+    public void confirmFriend(String userName, String thisUserName) {        
         dc.removeFriendRequest(thisUserName, userName);
         dc.addFriendToUser(thisUserName, userName);
         dc.addFriendToUser(userName, thisUserName);
     }
     
-    public void removeFriend(String userName) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+    public void removeFriend(String userName, String thisUserName) {        
         dc.removeFriend(thisUserName, userName);
         dc.removeFriend(userName, thisUserName);
     }
     
-    public void addRide(Ride ride) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+    public void addRide(Ride ride, String thisUserName) {        
         dc.addRide(ride, thisUserName);
     }
     
-    public ArrayList<Ride> getRidesList() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String thisUserName = facesContext.getExternalContext().getRemoteUser();
-        return dc.getRidesList(thisUserName);
+    public ArrayList<Ride> getRidesList(String userName) {        
+        return dc.getRidesList(userName);
     }
     
-    public ArrayList<Ride> getUpcomingList() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String thisUserName = facesContext.getExternalContext().getRemoteUser();
+    public ArrayList<Ride> getUpcomingList(String userName) {        
         ArrayList<User> friends = getFriendsList();
         Iterator it = friends.iterator();
         ArrayList<Ride> friendsRides = new ArrayList();
@@ -133,7 +140,6 @@ public class DatabaseBean implements Serializable {
             User u = (User) it.next();
             try {
                 ArrayList<Ride> ridesList = dc.getRidesList(u.getUserName());
-                System.out.println(ridesList.size());
                 friendsRides.addAll(ridesList);
             } catch (Exception e) {}
         }        
@@ -162,6 +168,10 @@ public class DatabaseBean implements Serializable {
     
     public void acceptRequest(String userName, String rideId) {
         dc.acceptRequest(userName, rideId);
+    }
+    
+    public void deleteRide(String id) {
+        dc.deleteRide(id);
     }
     
 }

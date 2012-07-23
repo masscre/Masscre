@@ -96,6 +96,14 @@
                         </ul>                                            
                     </c:if>
                 </h:form>
+                <h:form>
+                    <c:if test="#{rideDetailBean.isOwner()}">
+                        <h1 class="table_title">Actions:</h1>
+                        <ul class="submenu">
+                            <li><h:commandButton value="Delete ride" action="#{rideDetailBean.deleteRide()}" /></li>               
+                        </ul>                                            
+                    </c:if>
+                </h:form>
                 <h1 class="table_title">Chat:</h1>
                 
                 <h:form id="output">

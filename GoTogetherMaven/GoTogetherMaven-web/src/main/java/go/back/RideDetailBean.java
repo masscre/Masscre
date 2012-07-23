@@ -116,4 +116,9 @@ public class RideDetailBean implements Serializable {
         databaseBean.acceptRequest(userName, ride.getId());
     }
     
+    public void deleteRide() throws IOException {
+        databaseBean.deleteRide(ride.getId());
+        FacesContext.getCurrentInstance().getExternalContext().redirect("myrides.xhtml");
+    }
+    
 }

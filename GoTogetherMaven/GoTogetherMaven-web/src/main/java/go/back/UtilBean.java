@@ -1,5 +1,6 @@
 package go.back;
 
+import go.model.Mail;
 import go.model.User;
 import java.security.Principal;
 import javax.faces.bean.ManagedBean;
@@ -11,6 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Map;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -22,10 +24,18 @@ public class UtilBean implements Serializable {
     
     @ManagedProperty(value="#{databaseBean}")
     private DatabaseBean databaseBean;
+    
+    
+    @ManagedProperty(value="#{mailBean}")
+    private MailBean mailBean;
 
 
     public void setDatabaseBean(DatabaseBean databaseBean) {
             this.databaseBean = databaseBean;
+    }
+    
+    public void setMailBean(MailBean mailBean) {
+            this.mailBean = mailBean;
     }
     
     public UtilBean() {        
@@ -85,6 +95,14 @@ public class UtilBean implements Serializable {
     }
     
     public boolean newMail() {
+        ArrayList<Mail> mails = mailBean.getMails();
+        if (mails == null) return false;
+        if (mails.isEmpty()) return false;
+        Iterator it = mails.iterator();
+        while(it.hasNext()) {
+            Mail m = (Mail) it.next();
+            if (m.getReaded()) return false;
+        }
         return true;
     }
     
