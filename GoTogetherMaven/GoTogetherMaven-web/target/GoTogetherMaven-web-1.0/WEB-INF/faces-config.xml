@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>case1</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>case2</from-outcome>
+            <to-view-id>/registration.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>case1</from-outcome>
+            <to-view-id>/myrides.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>case2</from-outcome>
+            <to-view-id>/addfriend.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>case3</from-outcome>
+            <to-view-id>/upcoming.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>case4</from-outcome>
+            <to-view-id>/rmfriendok.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/upcoming.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>case1</from-outcome>
+            <to-view-id>/ridedetail.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/myrides.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>case1</from-outcome>
+            <to-view-id>/ridedetail.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/addfriend.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>case1</from-outcome>
+            <to-view-id>/addfriendconfirm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

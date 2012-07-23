@@ -4,10 +4,11 @@ import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Id;
 import com.google.code.morphia.annotations.Property;
+import java.io.Serializable;
 import org.bson.types.ObjectId;
 
 @Entity
-public class Message {
+public class Message implements Serializable{
     
     @Id private ObjectId id;
     private String author;
@@ -22,6 +23,10 @@ public class Message {
     public Message() {
         
     }
+
+    public ObjectId getId() {
+        return id;
+    }   
 
     public String getAuthor() {
         return author;
@@ -45,6 +50,10 @@ public class Message {
 
     public void setRideId(String rideId) {
         this.rideId = rideId;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
     
     

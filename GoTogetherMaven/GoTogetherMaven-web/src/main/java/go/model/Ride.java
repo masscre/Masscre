@@ -1,7 +1,11 @@
 package go.model;
 
+import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Id;
 import java.util.ArrayList;
 import java.util.Date;
+import org.bson.types.ObjectId;
+
 
 public class Ride {
     
@@ -17,7 +21,6 @@ public class Ride {
         this.numberOfSeats = numberOfSeats;
         this.taxType = taxType;
     }   
-    
     private String from;
     private String to;
     private String date;
@@ -26,10 +29,20 @@ public class Ride {
     private int numberOfSeats;
     private String taxType;
     private ArrayList<User> coriders = new ArrayList();
+    private ArrayList<String> requests = new ArrayList();
     private String owner;
+    private String ownerUserName;
     
     public int getUsedSeats() {
         return coriders.size();
+    }
+    
+    public void addRequest(String userName) {
+        requests.add(userName);
+    }
+    
+    public ArrayList<String> getRequests() {
+        return this.requests;
     }
 
     public String getId() {
@@ -71,8 +84,10 @@ public class Ride {
     public String getOwner() {
         return owner;
     }
-    
-    
+
+    public String getOwnerUserName() {
+        return ownerUserName;
+    }   
 
     public void setDate(String date) {
         this.date = date;
@@ -104,6 +119,14 @@ public class Ride {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public void setRequests(ArrayList<String> requests) {
+        this.requests = requests;
+    }
+
+    public void setOwnerUserName(String ownerUserName) {
+        this.ownerUserName = ownerUserName;
     }
 
     

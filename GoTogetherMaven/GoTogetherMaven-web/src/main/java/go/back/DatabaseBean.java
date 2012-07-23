@@ -35,9 +35,18 @@ public class DatabaseBean implements Serializable {
         this.mc = new MorphiaConnector();
     }
     
+    public void requestSeat(String userName, String rideId) {
+        this.dc.addRequestToRide(userName, rideId);
+    }
+    
+    
+    public void deleteMessage(String id) {
+        mc.deleteMessage(id);
+    }
+    
+    
     public void addMessageToRide(Message message, String rideId) {
         message.setRideId(rideId);
-        System.out.println(message.getAuthor()+" "+message.getMessage()+" "+message.getRideId());
         mc.saveMessage(message);
     }
     
@@ -135,5 +144,24 @@ public class DatabaseBean implements Serializable {
         return dc.getRide(id);
     }
     
+    public ArrayList<User> getRideRequests(String rideId) {
+        ArrayList<String> requestsId = dc.getRideRequests(rideId);
+        Iterator it = requestsId.iterator();
+        ArrayList<User> requests = new ArrayList();
+        while(it.hasNext()) {
+            String id = (String) it.next();
+            User u = dc.getUserByUserName(id);
+            requests.add(u);
+        }
+        return requests;
+    }
+    
+    public void declineRequest(String userName, String rideId) {
+        dc.removeRequestFromRide(userName, rideId);
+    }
+    
+    public void acceptRequest(String userName, String rideId) {
+        dc.acceptRequest(userName, rideId);
+    }
     
 }

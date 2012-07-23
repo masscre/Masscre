@@ -8,13 +8,14 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="./css/default.css" rel="stylesheet" type="text/css" />
-        <title>GoTogether</title>
+        <script language="javascript" src="./js/chat.js" />        
+        <title>GoTogether</title>  
     </h:head>
-    <h:body>
+    <h:body>        
         <ui:composition template="./WEB-INF/templates/template.xhtml">
             <ui:define name="content">                
                 <ul class="submenu">
-                    <li><a href="upcoming.xhtml">Back</a></li>               
+                    <li><a href="javascript: window.history.go(-1)">Back</a></li>               
                 </ul>      
                 
                 <h1 class="table_title">Ride detail:</h1>
@@ -23,6 +24,10 @@
                     <tr class="title">
                         <td>Parameter</td>
                         <td>Value</td>
+                    </tr>
+                    <tr>
+                        <td>Owner: </td>
+                        <td>#{rideDetailBean.ride.owner}</td>
                     </tr>
                     <tr>
                         <td>From: </td>
@@ -58,8 +63,39 @@
                             <td>#{r.getUserFullName()}</td>
                         </tr>
                     </ui:repeat>
-                </table>         
-                
+                </table> 
+                <h:form>
+                    <c:if test="#{rideDetailBean.isOwner()}">
+                        <c:if test="#{rideDetailBean.anyRequests()}">
+                            <h1 class="table_title">Seats requests:</h1>
+                            <table>
+                                <tr class="title">
+                                    <td>Friend name</td>
+                                    <td>Reject</td>
+                                    <td>Accept</td>
+                                </tr>
+                                <ui:repeat value="#{rideDetailBean.requests}" var="r">
+                                    <tr>
+                                        <td>#{r.getUserFullName()}</td>
+                                        <td>
+                                            <h:commandButton value="Decline" action="#{rideDetailBean.declineRequest(r.userName)}">                                                
+                                            </h:commandButton>                                        
+                                        </td>
+                                        <td><h:commandButton value="Accept" action="#{rideDetailBean.acceptRequest(r.userName)}" /></td>
+                                    </tr>
+                                </ui:repeat>
+                            </table>
+                        </c:if>
+                    </c:if>
+                </h:form>
+                <h:form>
+                    <c:if test="#{!rideDetailBean.isOwner()}">
+                        <h1 class="table_title">Actions:</h1>
+                        <ul class="submenu">
+                            <li><h:commandButton value="Request seat" action="#{rideDetailBean.requestSeat()}" /></li>               
+                        </ul>                                            
+                    </c:if>
+                </h:form>
                 <h1 class="table_title">Chat:</h1>
                 
                 <h:form id="output">
@@ -67,22 +103,35 @@
                        <tr class="title">
                            <td>Author </td>
                            <td>Message</td>
+                           <c:if test="#{rideDetailBean.isOwner()}">
+                               <td>Delete</td>
+                           </c:if>
                        </tr>
                        <ui:repeat value="#{rideDetailBean.messages}" var="m">
                            <tr>
                                <td>#{m.author}</td>
                                <td>#{m.message}</td>
+                               <c:if test="#{rideDetailBean.isOwner()}">
+                                    <td>
+                                        <h:commandButton value="Delete" action="#{rideDetailBean.deleteMessage(m.id.toString())}">                                            
+                                        </h:commandButton>    
+                                    </td>
+                               </c:if>
                            </tr>
                        </ui:repeat>
                        
                    </table>   
                     
                    <h:inputTextarea styleClass="message" id="text" value="#{rideDetailBean.message}"></h:inputTextarea>
-                  
-                   <h:commandButton value="Send" action="#{rideDetailBean.addMessage()}">
-                         <f:ajax execute="text" render="output"/>
-                   </h:commandButton>
+                   <ul class="submenu">
+                       <li><h:commandButton value="Send" action="#{rideDetailBean.addMessage()}">
+                             <f:ajax execute="text" render="output"/>
+                       </h:commandButton></li>
 
+                       <li><h:commandButton id="refresh" value="Refresh">
+                             <f:ajax render="output"/>
+                       </h:commandButton></li>
+                   </ul>
                    	
                 </h:form>
                 

@@ -38,7 +38,7 @@
                                     <td>#{r.time}</td>
                                     <td>#{r.getUsedSeats()}/#{r.numberOfSeats}</td>
                                     <td>#{r.taxType}</td>
-                                    <td><h:commandButton value="Detail" action="#{ridesListBean.detail(f.getId())}"/></td>
+                                    <td><a href="ridedetail.xhtml?id=#{r.id}"><h:commandButton value="Detail"/></a></td>
                                 </tr>   
                             </h:form>    
                         </ui:repeat>                        

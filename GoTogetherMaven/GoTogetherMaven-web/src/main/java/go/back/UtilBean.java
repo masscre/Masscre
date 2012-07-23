@@ -84,6 +84,10 @@ public class UtilBean implements Serializable {
         return dateFormat.format(date);
     }
     
+    public boolean newMail() {
+        return true;
+    }
+    
     
 
 }

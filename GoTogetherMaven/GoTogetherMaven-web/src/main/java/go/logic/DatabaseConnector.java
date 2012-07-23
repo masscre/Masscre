@@ -310,6 +310,7 @@ public class DatabaseConnector {
     }
     
     public Ride getRide(String id) {
+        System.out.println("Databaze "+id);
         BasicDBObject query = new BasicDBObject();
         query.put("_id", new ObjectId(id));
         DBObject rideDb = rides.findOne(query);
@@ -323,6 +324,7 @@ public class DatabaseConnector {
                 ride.setTaxType(rideDb.get("taxtype").toString());
                 ride.setId(rideDb.get("_id").toString());
                 ride.setOwner(rideDb.get("ownerName").toString());
+                ride.setOwnerUserName(rideDb.get("owner").toString());
                 ArrayList<String> coridersIds = new ArrayList();
                 try {
                     coridersIds = (ArrayList<String>) rideDb.get("coriders");
@@ -335,10 +337,72 @@ public class DatabaseConnector {
                     usersInRide.add(u);
                 }
                 ride.setCoriders(usersInRide);
+                ArrayList<String> requests = new ArrayList();
+                try {
+                    requests = (ArrayList<String>) rideDb.get("requests");
+                } catch (Exception e) {}
+                if (requests == null) requests = new ArrayList();
+                ride.setRequests(requests);
         }   catch (Exception e) {
             System.out.println(e);
         }        
         return ride;
+    }
+    
+    public void addRequestToRide(String userName, String rideId) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(rideId));
+        DBObject rideDb = rides.findOne(query);
+        ArrayList<String> requests = new ArrayList();
+        try {
+            requests = (ArrayList<String>) rideDb.get("requests");
+        } catch (Exception e) {            
+        }        
+        if (requests == null) requests = new ArrayList();
+        requests.add(userName);
+        rideDb.put("requests", requests);
+        rides.save(rideDb);
+    }
+    
+    public ArrayList<String> getRideRequests(String rideId) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(rideId));
+        DBObject rideDb = rides.findOne(query);
+        ArrayList<String> requests = new ArrayList();
+        try {
+            requests = (ArrayList<String>) rideDb.get("requests");
+        } catch (Exception e) {}
+        if (requests == null) requests = new ArrayList();
+        return requests;
+    }
+    
+    public void removeRequestFromRide(String userName, String rideId) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(rideId));
+        DBObject rideDb = rides.findOne(query);
+        ArrayList<String> requests = new ArrayList();
+        try {
+            requests = (ArrayList<String>) rideDb.get("requests"); 
+        } catch (Exception e) {}
+        if (requests == null) requests = new ArrayList();
+        requests.remove(userName);
+        rideDb.put("requests", requests);
+        rides.save(rideDb);
+    }
+    
+    public void acceptRequest(String userName, String rideId) {        
+        removeRequestFromRide(userName, rideId);
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(rideId));
+        DBObject rideDb = rides.findOne(query);
+        ArrayList<String> coriders = new ArrayList();
+        try {
+            coriders = (ArrayList<String>) rideDb.get("coriders");
+        } catch (Exception e) {}
+        if (coriders == null) coriders = new ArrayList();
+        coriders.add(userName);
+        rideDb.put("coriders", coriders);
+        rides.save(rideDb);
     }
     
 }
